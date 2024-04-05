@@ -90,7 +90,7 @@ function cart_price(){
         echo "Product Price: " . $product_price . "<br>";
     }
 
-    echo "Total Price: " . $total . "<br>";
+    // echo "Total Price: " . $total . "<br>";
     echo $total; // Output total price
 }
 ?>

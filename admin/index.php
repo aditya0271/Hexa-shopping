@@ -73,6 +73,7 @@
         <ul class="custom-scroll">
             <li class="active"><a href="index.php" class="waves-effect waves-primary"><i
                         class="la la-dashboard"></i>Dashboard</a></li>
+            <li><a href="combined_products.php" class="waves-effect waves-primary"><i class="la la-clone"></i>Insert Products</a></li>
             <li><a href="elements.html" class="waves-effect waves-primary"><i class="la la-clone"></i>Elements</a></li>
             <!-- <li><a href="javascript:;" class="waves-effect waves-primary"><i
                         class="la la-bullhorn"></i>Campaign</a></li> -->
@@ -300,36 +301,39 @@
             <div class="pagetitle">
                 <h4 class="text-center">Manage Details</h4>
             </div>
-<div class="card">
-    <div class="card-body d-flex flex-column align-items-center">
-        <div class="button text-center my-3">
-            <button class="btn btn-secondary m-1"><a href="insert_product.php" class="text-light">Insert Products</a></button>
-            <button class="btn btn-secondary m-1"><a href="#" class="text-light">View Products</a></button>
-            <button class="btn btn-secondary m-1"><a href="index.php?insert_category" class="text-light">Insert Categories</a></button>
-            <button class="btn btn-secondary m-1"><a href="#" class="text-light">View Categories</a></button>
-            <button class="btn btn-secondary m-1"><a href="index.php?insert_brands" class="text-light">Insert Brands</a></button>
-            <button class="btn btn-secondary m-1"><a href="#" class="text-light">All Orders</a></button>
-            <button class="btn btn-secondary m-1"><a href="#" class="text-light">All Payments</a></button>
-            <button class="btn btn-secondary m-1"><a href="#" class="text-light">List Users</a></button>
-        </div>
-        <form action="login.php" method="post">
-            <button type="submit" class="btn btn-secondary m-1">Logout</button>
-        </form>
-    </div>
-</div>
+            <div class="card">
+                <div class="card-body d-flex flex-column align-items-center">
+                    <div class="button text-center w-90 mb-2 ">
+                        <button class="btn btn-secondary m-1"><a href="index.php?combined_products"
+                                class="text-light">Insert Products</a></button>
+                        <button class="btn btn-secondary m-1"><a href="#" class="text-light">View Products</a></button>
+                        <button class="btn btn-secondary m-1"><a href="index.php?insert_category"
+                                class="text-light">Insert Categories</a></button>
+                        <button class="btn btn-secondary m-1"><a href="#" class="text-light">View
+                                Categories</a></button>
+                        <button class="btn btn-secondary m-1"><a href="index.php?insert_brands"
+                                class="text-light">Insert Brands</a></button>
+                        <button class="btn btn-secondary m-1"><a href="#" class="text-light">All Orders</a></button>
+                        <button class="btn btn-secondary m-1"><a href="#" class="text-light">All Payments</a></button>
+                        <button class="btn btn-secondary m-1"><a href="#" class="text-light">List Users</a></button>
+                    </div>
+                    <form action="login.php" method="post">
+                        <button type="submit" class="btn btn-secondary m-1">Logout</button>
+                    </form>
+                </div>
+            </div>
 
 
             <!-- including insert.php after clicking button -->
-            <div class="container  my-4">
-                <?php
-                if (isset ($_GET['insert_category'])) {
-                    include ('insert_categories.php');
-                }
-                if (isset ($_GET['insert_brands'])) {
-                    include ('insert_brands.php');
-                }
-                ?>
-            </div>
+            <?php
+            if (isset($_GET['combined_products'])) {
+                include ('combined_products.php');
+            }
+            if (isset($_GET['insert_brands'])) {
+                include ('insert_brands.php');
+            }
+            ?>
+        </div>
 </body>
 
 <script src="assets/scripts/jquery.min.js"></script>

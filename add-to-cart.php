@@ -53,8 +53,6 @@ include ('includes/header1.php');
                     </div>
 
                 </div>
-                <!-- Repeat the above block for each item in the cart -->
-            </div>
             <div class="col-md-4">
                 <div class="border p-3">
                     <h4>Order Summary</h4>
