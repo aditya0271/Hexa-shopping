@@ -194,7 +194,7 @@ include ('includes/header1.php');
                             <!--  -->
                             <?php
                             // Fetch product data
-                            $sql = "SELECT * FROM product WHERE categories= 'm' ";
+                            $sql = "SELECT * FROM product_details WHERE categories= 'm' ";
                             $result = $conn->query($sql);
                             if ($result->num_rows > 0) {
                                 // Output data of each row
@@ -215,19 +215,20 @@ include ('includes/header1.php');
                                                                 class="emoji">🛒</span></a></li> -->
                                                 </ul>
                                             </div>
-                                            <img src=".<?= $row["product_image"] ?>" alt="<?= $row["product_name"] ?>">
+                                            <img src="./images/<?= $row["image1"] ?>" alt="<?= $row["product_name"] ?>">
                                         </div>
                                         <div class="down-content">
-                                            <h4>
-                                                <?= $row["product_name"] ?>
-                                            </h4>
-                                            <span>RS.
-                                                <b>
+                                                <h5>
+                                                    <?= $row["brand_name"] ?>
+                                                </h5>
+                                                <p>
+                                                    <?= $row["product_name"] ?>
+                                                </p>
+                                                <span>RS.
                                                     <?= $row["product_price"] ?>
-                                                </b>
-                                            </span>
+                                                </span>
 
-                                        </div>
+                                            </div>
                                     </div>
                                     <?php
                                 }
@@ -265,7 +266,7 @@ include ('includes/header1.php');
                         <div class="owl-women-item owl-carousel">
                             <?php
                             // Fetch product data
-                            $sql = "SELECT * FROM product WHERE categories='w'";
+                            $sql = "SELECT * FROM product_details WHERE categories='w'";
                             $result = $conn->query($sql);
 
                             if ($result === false) {
@@ -291,21 +292,19 @@ include ('includes/header1.php');
                                                                     class="emoji">🛒</span></a></li>
                                                     </ul>
                                                 </div>
-                                                <img src=".<?= $row["product_image"] ?>" alt="<?= $row["product_name"] ?>">
+                                                <img src="./images/<?= $row["image1"] ?>" alt="<?= $row["product_name"] ?>">
                                             </div>
                                             <div class="down-content">
-                                                <h4>
+                                                <h5>
+                                                    <?= $row["brand_name"] ?>
+                                                </h5>
+                                                <p>
                                                     <?= $row["product_name"] ?>
-                                                </h4>
+                                                </p>
                                                 <span>RS.
                                                     <?= $row["product_price"] ?>
                                                 </span>
-                                                <ul class="stars">
-                                                    <?php
-                                                    for ($i = 0; $i < 5; $i++) { ?>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                    <?php } ?>
-                                                </ul>
+
                                             </div>
                                         </div>
                                         <?php
@@ -343,7 +342,7 @@ include ('includes/header1.php');
                         <div class="owl-kid-item owl-carousel">
                             <?php
                             // Fetch product data
-                            $sql = "SELECT * FROM product WHERE categories='k'";
+                            $sql = "SELECT * FROM product_details WHERE categories='k'";
                             $result = $conn->query($sql);
 
                             if ($result === false) {
@@ -372,21 +371,19 @@ include ('includes/header1.php');
                                                     </ul>
                                                 </div>
 
-                                                <img src=".<?= $row["product_image"] ?>" alt="<?= $row["product_name"] ?>">
+                                                <img src="./images/<?= $row["image1"] ?>" alt="<?= $row["product_name"] ?>">
                                             </div>
                                             <div class="down-content">
-                                                <h4>
+                                                <h5>
+                                                    <?= $row["brand_name"] ?>
+                                                </h5>
+                                                <p>
                                                     <?= $row["product_name"] ?>
-                                                </h4>
+                                                </p>
                                                 <span>RS.
                                                     <?= $row["product_price"] ?>
                                                 </span>
-                                                <ul class="stars">
-                                                    <?php
-                                                    for ($i = 0; $i < 5; $i++) { ?>
-                                                        <li><i class="fa fa-star"></i></li>
-                                                    <?php } ?>
-                                                </ul>
+
                                             </div>
                                         </div>
                                         <?php

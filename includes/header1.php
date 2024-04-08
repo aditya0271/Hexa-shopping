@@ -68,13 +68,13 @@
                         <a href="#women" class="nav-item nav-link">Women's</a>
                         <a href="#kids" class="nav-item nav-link">Kid's</a>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                            <!-- <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                             <div class="dropdown-menu m-2 bg-secondary rounded-0">
                                 <a href="cart.html" class="dropdown-item">About Us</a>
                                 <a href="chackout.html" class="dropdown-item">Products</a>
                                 <a href="add-to-cart.php" class="dropdown-item">Single Products</a>
                                 <a href="404.html" class="dropdown-item">Contact Us</a>
-                            </div>
+                            </div> -->
                         </div>
                         <a href="contact.html" class="nav-item nav-link">Categories</a>
                     </div>

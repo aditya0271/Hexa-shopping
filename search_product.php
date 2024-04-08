@@ -24,7 +24,7 @@ include ('includes/header1.php');
             <?php
             if (isset($_GET['search_query']) && !empty($_GET['search_query'])) {
                 $search_query = mysqli_real_escape_string($conn, $_GET['search_query']);
-                $sql = "SELECT * FROM product WHERE product_name LIKE '%$search_query%'";
+                $sql = "SELECT * FROM product_details WHERE product_name LIKE '%$search_query%'";
                 $result = mysqli_query($conn, $sql);
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
@@ -33,15 +33,19 @@ include ('includes/header1.php');
                             <div class="item">
                                 <div class="thumb">
                                     <div class="hover-content">
-                                        <img src=".<?php echo $row['product_image']; ?>" alt="<?php echo $row['product_name']; ?>">
+                                        <img src="./images/<?php echo $row['image1']; ?>" alt="<?php echo $row['product_name']; ?>">
                                     </div>
+                                    <br>
                                     <div class="down-content">
-                                        <h4>
-                                            <?php echo $row['product_name']; ?>
-                                        </h4>
-                                        <span>RS.
-                                            <?php echo $row['product_price']; ?>
-                                        </span>
+                                                <h5>
+                                                    <?= $row["brand_name"] ?>
+                                                </h5>
+                                                <p>
+                                                    <?= $row["product_name"] ?>
+                                                </p>
+                                                <span>RS.
+                                                    <?= $row["product_price"] ?>
+                                                </span>
                                         <ul class="list-inline mb-0">
                                             <li class="list-inline-item"><a
                                                     href="single-product.php?id=<?php echo $row['product_id']; ?>"><i

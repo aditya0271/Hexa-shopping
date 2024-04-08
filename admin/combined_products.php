@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["image"])) {
 
         // Check if file is uploaded successfully
         if ($file_error == UPLOAD_ERR_OK) {
-            $destination = "uploads/" . $file_name;
+            $destination = "../assets/images/uploads/" . $file_name;
             move_uploaded_file($file_tmp, $destination);
             $imagePaths[] = $destination;
             // echo "File uploaded successfully: $destination <br>";
@@ -133,12 +133,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["image"])) {
                 <!-- Image -->
                 <div class="form-outline mb-2">
                     <label for="product_image" class="form-label">Product Image</label>
-                    <input type="file" name="image[]" multiple class="form-control" required="required">
+                    <input type="file" name="image[]" multiple class="form-control" >
                 </div>
                 <!-- Image -->
                 <div class="form-outline mb-2">
                     <label for="product_image" class="form-label">Product Image</label>
-                    <input type="file" name="image[]" multiple class="form-control" required="required">
+                    <input type="file" name="image[]" multiple class="form-control" >
                 </div>
 
                 <!-- Price -->
@@ -152,9 +152,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["image"])) {
                     <label for="categories" class="form-label">Category</label>
                     <select name="categories" id="categories" class="form-control">
                         <option value="" disabled selected hidden>Select Category</option>
-                        <option value="m">M</option>
-                        <option value="w">W</option>
-                        <option value="k">K</option>
+                        <option value="m">m</option>
+                        <option value="w">w</option>
+                        <option value="k">k</option>
                     </select>
                 </div>
                 <br>
