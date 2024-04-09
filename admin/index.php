@@ -304,21 +304,21 @@
             <div class="card">
                 <div class="card-body d-flex flex-column align-items-center">
                     <div class="button text-center w-90 mb-2 ">
-                        <button class="btn btn-secondary m-1"><a href="index.php?combined_products"
-                                class="text-light">Insert Products</a></button>
-                        <button class="btn btn-secondary m-1"><a href="#" class="text-light">View Products</a></button>
-                        <button class="btn btn-secondary m-1"><a href="index.php?insert_category"
-                                class="text-light">Insert Categories</a></button>
-                        <button class="btn btn-secondary m-1"><a href="#" class="text-light">View
+                        <button class="btn admin-btn btn-secondary m-1"><a href="index.php?combined_products"
+                                class="text-light text-decoration-none">Insert Products</a></button>
+                        <button class="btn admin-btn btn-secondary m-1"><a href="#" class="text-light text-decoration-none">View Products</a></button>
+                        <button class="btn admin-btn btn-secondary m-1"><a href="index.php?insert_category"
+                                class="text-light text-decoration-none">Insert Categories</a></button>
+                        <button class="btn admin-btn btn-secondary m-1"><a href="#" class="text-light text-decoration-none">View
                                 Categories</a></button>
-                        <button class="btn btn-secondary m-1"><a href="index.php?insert_brands"
-                                class="text-light">Insert Brands</a></button>
-                        <button class="btn btn-secondary m-1"><a href="#" class="text-light">All Orders</a></button>
-                        <button class="btn btn-secondary m-1"><a href="#" class="text-light">All Payments</a></button>
-                        <button class="btn btn-secondary m-1"><a href="#" class="text-light">List Users</a></button>
+                        <button class="btn admin-btn btn-secondary m-1"><a href="index.php?insert_brands"
+                                class="text-light text-decoration-none">Insert Brands</a></button>
+                        <button class="btn admin-btn btn-secondary m-1"><a href="#" class="text-light text-decoration-none">All Orders</a></button>
+                        <button class="btn admin-btn btn-secondary m-1"><a href="#" class="text-light text-decoration-none">All Payments</a></button>
+                        <button class="btn admin-btn btn-secondary m-1"><a href="#" class="text-light text-decoration-none">List Users</a></button>
                     </div>
                     <form action="login.php" method="post">
-                        <button type="submit" class="btn btn-secondary m-1">Logout</button>
+                        <button type="submit" class="btn admin-btn btn-secondary m-1">Logout</button>
                     </form>
                 </div>
             </div>

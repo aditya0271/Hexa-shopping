@@ -70,7 +70,7 @@ include ('includes/header1.php');
                                 <p>inclusive of all taxes</p>
                             </h3>
                             <br>
-                            <label for="size-selector" class="mt-8"><h6>Select Size:</h6><br></label>
+                            <label for="size-selector" class="mt-8 d-inline"><h6>Select Size:</h6><br></label>
                             <div class="btn-group size-selector mt-8" role="group" aria-label="Size Selector">
                                 <button type="button" class="btn btn-outline-primary rounded-circle mr-2">38</button>
                                 <button type="button" class="btn btn-outline-primary rounded-circle mr-2">40</button>

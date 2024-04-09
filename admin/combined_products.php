@@ -65,40 +65,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["image"])) {
     <!-- csslink -->
     <link rel="stylesheet" href="../style.css">
     <style>
-        body {
-            background-color: #f8f9fa;
-        }
-
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            border-radius: 10px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border: 1px solid #ced4da; /* Added border to the container */
-        }
-
-        .form-label {
-            font-weight: bold;
-            display: block;
-        }
-
-        .form-control {
-            border-radius: 5px;
-            border: 1px solid #ced4da;
-            padding: 8px;
-        }
-
-        .btn {
-            border-radius: 5px;
-            display: block;
-            margin: 0 auto; /* Centering the button */
-        }
+        .admin-btn {
+            border-radius: 5px;/* Centering the button */
+            background: #0b1630;
+            border-color: #0b1630;
+            text-decoration: none;
+}
     </style>
 </head>
 
-<body><div class="container">
+<body><div class="container w-50 my-5">
     <h1 class="text-center">Insert Products</h1>
     <div class="row ">
         <div class="">

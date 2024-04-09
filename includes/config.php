@@ -94,3 +94,26 @@ function cart_price(){
     echo $total; // Output total price
 }
 ?>
+<?php
+function cart_items() {
+    global $conn;
+
+    // Get the session ID
+    $session_id = get_session_id();
+
+    // Query to fetch cart items
+    $cart_query = "SELECT p.image1, p.product_id, p.product_name, p.product_price, c.quantity FROM cart_details c JOIN product_details p ON c.product_id = p.product_id WHERE c.session_id ='$session_id'";
+    $result_query = mysqli_query($conn, $cart_query);
+
+    // Display cart items
+    while($row = mysqli_fetch_assoc($result_query)) {
+        echo "<img src='./image/".$row['image1']."' alt='ww' >";
+        echo "Product ID: " . $row['product_id'] . "<br>";
+        echo "Product Name: " . $row['product_name'] . "<br>";
+        echo "Price: " . $row['product_price'] . "<br>";
+        echo "Quantity: " . $row['quantity'] . "<br>";
+        // Additional product details can be displayed as needed
+        echo "<br>";
+    }
+}
+?>
