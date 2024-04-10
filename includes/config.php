@@ -102,18 +102,24 @@ function cart_items() {
     $session_id = get_session_id();
 
     // Query to fetch cart items
-    $cart_query = "SELECT p.image1, p.product_id, p.product_name, p.product_price, c.quantity FROM cart_details c JOIN product_details p ON c.product_id = p.product_id WHERE c.session_id ='$session_id'";
+    $cart_query = "SELECT p.image1, p.brand_name, p.product_id, p.product_name, p.product_price, c.quantity FROM cart_details c JOIN product_details p ON c.product_id = p.product_id WHERE c.session_id ='$session_id'";
     $result_query = mysqli_query($conn, $cart_query);
 
     // Display cart items
     while($row = mysqli_fetch_assoc($result_query)) {
-        echo "<img src='./image/".$row['image1']."' alt='ww' >";
-        echo "Product ID: " . $row['product_id'] . "<br>";
-        echo "Product Name: " . $row['product_name'] . "<br>";
-        echo "Price: " . $row['product_price'] . "<br>";
-        echo "Quantity: " . $row['quantity'] . "<br>";
-        // Additional product details can be displayed as needed
-        echo "<br>";
+        echo '<div class="row my-4 border p-2">
+                <div class="row main align-items-center">
+                    <div class="col-2 "><img class="img-fluid" src="./image/'.$row['image1'].'"></div>
+                    <div class="col">
+                        <div class="row text-muted">'.$row['brand_name'].'</div>
+                        <div class="row">'.$row['product_name'].'</div>
+                    </div>
+                    <div class="col">
+                        <a href="#">-</a><a href="#" class="border">1</a><a href="#">+</a>
+                    </div>
+            <div class="col">RS. '.$row['product_price'].'<span class="close">&#10005;</span></div>
+        </div>
+    </div>';
     }
 }
 ?>
