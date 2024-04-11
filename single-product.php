@@ -64,13 +64,20 @@ include ('includes/header1.php');
                                 </h4>
                             </span>
                             </h6>
+                            <!-- <form action="index.php?add_to_cart=<?php echo $product_id; ?>" method="POST">
+                                <input type="number" name="quantity" value="1" min="1">
+                                <button type="submit">Add to Cart</button>
+                            </form> -->
+
 
                             <h3>RS.
                                 <?php echo $product['product_price']; ?>
                                 <p>inclusive of all taxes</p>
                             </h3>
                             <br>
-                            <label for="size-selector" class="mt-8 d-inline"><h6>Select Size:</h6><br></label>
+                            <label for="size-selector" class="mt-8 d-inline">
+                                <h6>Select Size:</h6><br>
+                            </label>
                             <div class="btn-group size-selector mt-8" role="group" aria-label="Size Selector">
                                 <button type="button" class="btn btn-outline-primary rounded-circle mr-2">38</button>
                                 <button type="button" class="btn btn-outline-primary rounded-circle mr-2">40</button>
@@ -91,12 +98,25 @@ include ('includes/header1.php');
                                 <br>
                                 <br>
                             </p>
-                            <form action="single-product.php" method="GET">
+                            <!-- <form action="single-product.php" method="GET">
                                 <input type="hidden" name="add_to_cart" value="<?php echo $product['product_id']; ?>">
                                 <button type="submit" class="btn btn-dark"><i class="bi bi-cart-fill"></i> Add to Cart</button>
                                 <br>
                                 <br>
-                            </form>
+                            </form> -->
+                            <form action="index.php?add_to_cart=<?php echo $product_id; ?>" method="POST" class="mb-3">
+    <div class="row">
+    <div class="col-md-2">
+            <input type="number" name="quantity" value="1" min="1" class="form-control form-control-sm">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 mt-2">
+            <button type="submit" class="btn btn-dark"><i class="bi bi-cart-fill"></i> Add to Cart</button>
+        </div>
+    </div>
+</form>
+
 
 
                             <a href="#" class="btn btn-secondary"><i class="bi bi-heart-fill"></i> Wishlist <br></a>

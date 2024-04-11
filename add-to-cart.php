@@ -9,7 +9,7 @@ include ('includes/header1.php');
  
     <div class="container">
         <div class="row col-lg-12">
-            <div class="container">
+            <div class="container mx-20px">
                 <!-- ***** Main Banner Area Start ***** -->
                 <div class="page-heading" id="top"></div>
 
@@ -23,16 +23,8 @@ include ('includes/header1.php');
             </div>
 
             <div class="col-md-8">
-                <div class="border p-2">
-                    <h4>Order Summary</h4>
-                    <p><strong>Subtotal:</strong> $XXX.XX</p>
-                    <p><strong>Estimated Shipping:</strong> $XX.XX</p>
-                    <p><strong>Estimated Total:</strong> $XXX.XX</p>
-                    <button type="button" class="btn btn-dark mt-3">Proceed to Checkout</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php calculate_order_summary(); ?>
+</div>
 
     <!-- footer -->
     <?php include ('includes/footer.php'); ?>

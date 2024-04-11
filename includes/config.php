@@ -19,11 +19,13 @@ if ($conn->connect_error) {
 session_start(); // Start the session
 
 
-function get_session_id() {
+function get_session_id()
+{
     return session_id(); // Returns the session ID
 }
 
-function cart() {
+function cart()
+{
     global $conn; // Assuming $conn is your database connection
     if (isset($_GET['add_to_cart'])) {
         $session_id = get_session_id();
@@ -32,6 +34,14 @@ function cart() {
         // Sanitize input to prevent SQL injection
         $session_id = mysqli_real_escape_string($conn, $session_id);
         $get_product_id = mysqli_real_escape_string($conn, $get_product_id);
+
+        // Check if the quantity is provided by the user
+        if (isset($_POST['quantity']) && is_numeric($_POST['quantity']) && $_POST['quantity'] > 0) {
+            $quantity = $_POST['quantity'];
+        } else {
+            // Default to 1 if quantity is not provided or invalid
+            $quantity = 1;
+        }
 
         $select_query = "SELECT * FROM `cart_details` WHERE session_id='$session_id' AND product_id=$get_product_id";
         $result_query = mysqli_query($conn, $select_query);
@@ -42,7 +52,7 @@ function cart() {
             echo "<script>window.open('index.php', '_self')</script>";
         } else {
             // Insert the item into the cart_details table
-            $insert_query = "INSERT INTO `cart_details` (session_id, product_id, quantity) VALUES ('$session_id', $get_product_id, 1)";
+            $insert_query = "INSERT INTO `cart_details` (session_id, product_id, quantity) VALUES ('$session_id', $get_product_id, $quantity)";
 
             $result_insert = mysqli_query($conn, $insert_query);
             if ($result_insert) {
@@ -53,7 +63,8 @@ function cart() {
     }
 }
 
-function cart_item() {
+function cart_item()
+{
     global $conn; // Assuming $conn is your database connection
 
     // Get the session ID
@@ -72,7 +83,8 @@ function cart_item() {
 cart();
 ?>
 <?php
-function cart_price(){
+function cart_price()
+{
     global $conn;
     $session_id = get_session_id();
     $total = 0;
@@ -84,7 +96,7 @@ function cart_price(){
     $result_query = mysqli_query($conn, $cart_query);
 
     // Calculate total price
-    while($row = mysqli_fetch_array($result_query)){
+    while ($row = mysqli_fetch_array($result_query)) {
         $product_price = $row['product_price'];
         $total += $product_price;
         echo "Product Price: " . $product_price . "<br>";
@@ -105,21 +117,79 @@ function cart_items() {
     $cart_query = "SELECT p.image1, p.brand_name, p.product_id, p.product_name, p.product_price, c.quantity FROM cart_details c JOIN product_details p ON c.product_id = p.product_id WHERE c.session_id ='$session_id'";
     $result_query = mysqli_query($conn, $cart_query);
 
+    // Start of the table
+    echo '<table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Image</th>
+                    <th scope="col">Brand</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>';
+
     // Display cart items
-    while($row = mysqli_fetch_assoc($result_query)) {
-        echo '<div class="row my-4 border p-2">
-                <div class="row main align-items-center">
-                    <div class="col-2 "><img class="img-fluid" src="./image/'.$row['image1'].'"></div>
-                    <div class="col">
-                        <div class="row text-muted">'.$row['brand_name'].'</div>
-                        <div class="row">'.$row['product_name'].'</div>
-                    </div>
-                    <div class="col">
-                        <a href="#">-</a><a href="#" class="border">1</a><a href="#">+</a>
-                    </div>
-            <div class="col">RS. '.$row['product_price'].'<span class="close">&#10005;</span></div>
-        </div>
-    </div>';
+    while ($row = mysqli_fetch_assoc($result_query)) {
+        $total_price = $row['product_price'] * $row['quantity'];
+
+        echo '<tr>
+                <td><img class="img-fluid" style="max-width: 100px;" src="./image/' . $row['image1'] . '"></td>
+                <td>' . $row['brand_name'] . '</td>
+                <td>' . $row['product_name'] . '</td>
+                <td>
+                <input type="number" class="quantity-input" value="' . $row['quantity'] . '" min="1">
+            </td>
+            <td>RS. ' . $total_price . '</td>
+                <td><a href="#" class="remove-item"><i class="fas fa-trash-alt"></i></a></td>
+
+            </tr>';
     }
+
+    // End of the table
+    echo '</tbody>
+        </table>';
+}
+
+
+?>
+<?php
+function calculate_order_summary() {
+    global $conn;
+    $session_id = get_session_id();
+    $subtotal = 0.00;
+    $shippingCost = 5.00; // Flat rate shipping
+    $freeShippingThreshold = 50.00; // Free shipping for orders over $50
+
+    // Query to fetch cart items
+    $cart_query = "SELECT p.product_price, c.quantity FROM cart_details c JOIN product_details p ON c.product_id = p.product_id WHERE c.session_id ='$session_id'";
+    $result_query = mysqli_query($conn, $cart_query);
+
+    while ($row = mysqli_fetch_assoc($result_query)) {
+        $subtotal += ($row['product_price'] * $row['quantity']);
+    }
+
+    // Apply shipping logic
+    if ($subtotal > $freeShippingThreshold) {
+        $shippingCost = 5.00; // Free shipping
+    }
+
+    $total = $subtotal + $shippingCost;
+
+    // Format numbers to 2 decimal places for display
+    $subtotal = number_format($subtotal, 2);
+    $shippingCost = number_format($shippingCost, 2);
+    $total = number_format($total, 2);
+
+    // Display the order summary
+    echo '<div class="border mx-2 p-3">
+            <h4>Order Summary</h4>
+            <p><strong>Subtotal:</strong> RS. ' .  $subtotal . '</p>
+            <p><strong>Estimated Shipping:</strong> RS. ' .  $shippingCost . '</p>
+            <p><strong>Estimated Total:</strong> RS. ' .  $total . '</p>
+            <button type="button" class="btn btn-dark mt-3">Proceed to Checkout</button>
+          </div>';
 }
 ?>

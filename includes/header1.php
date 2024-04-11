@@ -68,7 +68,7 @@
             <span class="fa fa-bars text-primary"></span>
         </button>
         <div class="collapse navbar-collapse bg-white shadow-lg" id="navbarCollapse">
-            <div class="navbar-nav mx-auto shadow-lg">
+            <div class="navbar-nav mx-auto ">
                 <a href="#top" class="nav-item nav-link active">Home</a>
                 <a href="#men" class="nav-item nav-link">Men's</a>
                 <a href="#women" class="nav-item nav-link">Women's</a>
