@@ -126,7 +126,8 @@ function cart_items() {
                     <th scope="col">Name</th>
                     <th scope="col">Quantity</th>
                     <th scope="col">Price</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">Total Price</th>
+                    <th scope="col">Remove</th>
                 </tr>
             </thead>
             <tbody>';
@@ -134,26 +135,39 @@ function cart_items() {
     // Display cart items
     while ($row = mysqli_fetch_assoc($result_query)) {
         $total_price = $row['product_price'] * $row['quantity'];
-
         echo '<tr>
                 <td><img class="img-fluid" style="max-width: 100px;" src="./image/' . $row['image1'] . '"></td>
                 <td>' . $row['brand_name'] . '</td>
                 <td>' . $row['product_name'] . '</td>
                 <td>
-                <input type="number" class="quantity-input" value="' . $row['quantity'] . '" min="1">
-            </td>
-            <td>RS. ' . $total_price . '</td>
-                <td><a href="#" class="remove-item"><i class="fas fa-trash-alt"></i></a></td>
-
+                    <input type="number" class="quantity-input" id="qty_' . $row['product_id'] . '" style="width: 50px; text-align: center;" value="' . $row['quantity'] . '" min="1" data-price="' . $row['product_price'] . '" onchange="updatePrice(this, ' . $row['product_id'] . ')">
+                </td>
+                <td>RS. ' . $row['product_price'] . '</td>
+                <td id="total_' . $row['product_id'] . '">RS. ' . $total_price . '</td>
+                <td><button class="btn btn-danger remove-item" data-productid="' . $row['product_id'] . '"><i class="fas fa-trash-alt"></i></button></td>
             </tr>';
     }
 
     // End of the table
     echo '</tbody>
         </table>';
+
+    // JavaScript for handling item removal
+    echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const removeButtons = document.querySelectorAll(".remove-item");
+                removeButtons.forEach(button => {
+                    button.addEventListener("click", function() {
+                        const productId = this.getAttribute("data-productid");
+                        removeCartItem(productId);
+                    });
+                });
+
+                function removeCartItem(productId) {
+                }
+            });
+        </script>';
 }
-
-
 ?>
 <?php
 function calculate_order_summary() {
