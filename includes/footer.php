@@ -98,6 +98,29 @@
         });
     });
 
+
+// Checkout page
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const paymentOptions = document.querySelectorAll('input[name="paymentMethod"]');
+            const upiInput = document.getElementById('upiInput');
+
+            function toggleUPIInput() {
+                if (document.getElementById('upi').checked) {
+                    upiInput.style.display = 'block';
+                } else {
+                    upiInput.style.display = 'none';
+                }
+            }
+
+            paymentOptions.forEach(option => {
+                option.addEventListener('change', toggleUPIInput);
+            });
+        });
+    </script>
+
+
 </script>
 <!-- Back to Top -->
 <a href="#" class="btn btn-secondary border-3 border-dark rounded-circle back-to-top"><i
@@ -110,6 +133,10 @@
 <script src="lib/waypoints/waypoints.min.js"></script>
 <script src="lib/lightbox/js/lightbox.min.js"></script>
 <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+<!--Checkout page -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <!-- Template Javascript -->
 <script src="/assets/js/main.js"></script>

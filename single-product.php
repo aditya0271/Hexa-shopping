@@ -105,17 +105,25 @@ include ('includes/header1.php');
                                 <br>
                             </form> -->
                             <form action="index.php?add_to_cart=<?php echo $product_id; ?>" method="POST" class="mb-3">
-    <div class="row">
-    <div class="col-md-2">
-            <input type="number" name="quantity" value="1" min="1" class="form-control form-control-sm">
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12 mt-2">
-            <button type="submit" class="btn btn-dark"><i class="bi bi-cart-fill"></i> Add to Cart</button>
-        </div>
-    </div>
-</form>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <input type="number" name="quantity" value="1" min="1"
+                                            class="form-control form-control-sm">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 mt-2">
+                                        <button type="submit" class="btn btn-dark"><i class="bi bi-cart-fill"></i> Add to
+                                            Cart</button>
+                                    </div>
+                                </div>
+                            </form>
+                             <form action="single-product.php" method="GET">
+                                <input type="hidden" name="add_to_wishlist" value="<?php echo $product['product_id']; ?>">
+                                <button type="submit" class="btn btn-dark"><i class="bi bi-cart-fill"></i> Add to wishlist</button>
+                                <br>
+                                <br>
+                            </form>
 
 
 

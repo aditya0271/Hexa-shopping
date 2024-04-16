@@ -1,39 +1,58 @@
-<!-- config file -->
 <?php
-include('../includes/config.php');
-include('../controller/login.php');
+include ('includes/config.php');
 
+// Initialize the error variable
+$error = '';
+
+// Check if the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Retrieve form data
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+
+    // Validate form data (you can add more validation as needed)
+    if (empty($username) || empty($password)) {
+        $error = "Username/Email and password are required";
+    } else {
+        // Check if the username/email exists in the database
+        $query = "SELECT * FROM customer WHERE username = '$username' OR email = '$username'";
+        $result = mysqli_query($conn, $query);
+
+        if ($result && mysqli_num_rows($result) > 0) {
+            $user = mysqli_fetch_assoc($result);
+            // Verify the password
+            if (password_verify($password, $user['password'])) {
+                // Password is correct, set session variables or redirect to dashboard
+                session_start();
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['username'] = $user['username'];
+                // Redirect to dashboard or any other page after successful login
+                header("Location: index.php");
+                exit();
+            } else {
+                $error = "Incorrect password";
+            }
+        } else {
+            $error = "Username/Email not found";
+        }
+    }
+}
 ?>
-<!DOCTYPE html>
-<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta content='IE=edge' http-equiv=X-UA-Compatible>
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>MS Login Panel</title>
-    <link rel="shortcut icon" type="image/png" href="#">
-
     <!-- Core Css -->
     <link rel="stylesheet" type="text/css" href="admin/assets/css/line-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="admin/assets/css/jquery.mCustomScrollbar.css">
     <link rel="stylesheet" type="text/css" href="admin/assets/css/bootstrap-select.min.css">
     <link rel="stylesheet" type="text/css" href="admin/assets/css/bootstrap.css">
 
-
     <!-- Custom Css -->
     <link rel="stylesheet" type="text/css" href="admin/assets/css/style.min.css">
 
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+ 
 </head>
 
 <body>
-    <!-- ########## START: Login Form ########## -->
     <section class="login-wrapper d-flex align-content-center justify-content-center p-3 flex-wrap">
         <a href="login.php" class="w-100 text-center mb-3 mb-lg-5"><img src="admin/assets/image/logo.png"
                 alt="MS Admin Panel" width="150" /></a>
@@ -44,40 +63,46 @@ include('../controller/login.php');
                 </div>
                 <div class="col-12 col-lg-6 pl-lg-2">
                     <div class="pagetitle mb-4">
-                        <h2>Component</h2>
+                        <h2></h2>
+                        <h5>Welcome to HEXASHOP</h5>
+
+                        <h5>Login</h5>
                     </div>
-                    <form action="login.php" method="post">
-                        <div class="form-group mb-4">
-                            <label>username</label>
-                            <input type="text" class="form-control border-light input-h-42"
-                                placeholder="username" name="username" required>
+                    <?php if ($error): ?>
+                        <div class="alert alert-danger"><?php echo htmlspecialchars($error); ?></div>
+                    <?php endif; ?>
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                        <div class="form-group">
+                            <label for="username">Username/Email</label>
+                            <div class=" input-group border border-light">
+                                <input type="text" id="username" name="username" class="form-control"
+                                    placeholder="Username/Email" required>
+                            </div>
                         </div>
-                        <div class="form-group mb-4">
-                            <label>password</label>
+                        <div class="form-group">
+                            <label for="password">Password</label>
                             <div class="input-group border border-light">
-                                <input  id="password-field" type="password" class="form-control input-h-42"
-                                    placeholder="Password" name="password" aria-label="Password" required>
+                                <input type="password" id="password" name="password" class="form-control"
+                                    placeholder="Password" aria-label="Password" required>
                                 <div class="input-group-prepend">
-                                    <span toggle="#password-field" class="input-group-text la la-eye" id="Password"></span>
+                                    <span toggle="#password" class="input-group-text la la-eye" id="Password"></span>
                                 </div>
                             </div>
                         </div>
-                        <div class="d-flex align-items-center justify-content-between mb-4">
-                            <!-- <a href="forgot.html" class="text-primary btn-link">Forgot password?</a> -->
+                        <div class="d-flex align-items-center justify-content-between mb-2">
+                            <a href="forgot.html" class="text-primary btn-link">Forgot password?</a>
                             <button type="submit"
                                 class="btn btn-primary waves-effect waves-primary btn-md w-50">Login</button>
                         </div>
-                        <!-- <hr class="mb-4">
-                        <a href="register.html"
-                            class="btn btn-outline-primary waves-effect waves-primary w-100 btn-md">Create an
-                            account</a> -->
                     </form>
+                    <p>Don't have an account? <a href="register.php">Register here</a></p>
                 </div>
             </div>
         </div>
     </section>
-    <!-- ########## END: Login Form ########## -->
-</body>
+   </body>
+
+</html>
 
 <script src="admin/assets/scripts/jquery.min.js"></script>
 <script src="admin/assets/scripts/popper.min.js"></script>
@@ -87,7 +112,7 @@ include('../controller/login.php');
 <script src="admin/assets/scripts/bootstrap-select.min.js"></script>
 <script src="admin/assets/scripts/bootstrap-tooltip-custom-class.js"></script>
 <script src="admin/assets/scripts/jquery.mCustomScrollbar.js"></script>
-<script src="admin/ssets/scripts/datatables.min.js"></script>
+<script src="admin/assets/scripts/datatables.min.js"></script>
 <script src="admin/assets/scripts/ripple.min.js"></script>
 <script src="admin/assets/scripts/custome.js"></script>
 

@@ -49,7 +49,7 @@ function cart()
 
         if ($num_of_rows > 0) {
             echo "<script>alert('This item is already in your cart')</script>";
-            echo "<script>window.open('index.php', '_self')</script>";
+            // echo "<script>window.open('index.php', '_self')</script>";
         } else {
             // Insert the item into the cart_details table
             $insert_query = "INSERT INTO `cart_details` (session_id, product_id, quantity) VALUES ('$session_id', $get_product_id, $quantity)";
@@ -57,11 +57,55 @@ function cart()
             $result_insert = mysqli_query($conn, $insert_query);
             if ($result_insert) {
                 echo "<script>alert('Item added to cart successfully')</script>";
-                echo "<script>window.open('index.php', '_self')</script>";
+                // echo "<script>window.open('index.php', '_self')</script>";
             }
         }
     }
 }
+
+// add to wishlist page
+
+function wishcart()
+{
+    global $conn; // Assuming $conn is your database connection
+    if (isset($_GET['add_to_wishlist'])) {
+        $session_id = get_session_id(); // Assuming get_session_id() retrieves the session ID
+
+        // Get the product ID from the URL parameter
+        $get_product_id = $_GET['add_to_wishlist'];
+
+        // Sanitize input to prevent SQL injection
+        $session_id = mysqli_real_escape_string($conn, $session_id);
+        $get_product_id = mysqli_real_escape_string($conn, $get_product_id);
+
+        // Check if the quantity is provided by the user
+        if (isset($_POST['quantity']) && is_numeric($_POST['quantity']) && $_POST['quantity'] > 0) {
+            $quantity = $_POST['quantity'];
+        } else {
+            // Default to 1 if quantity is not provided or invalid
+            $quantity = 1;
+        }
+
+        // Check if the item is already in the wishlist
+        $select_query = "SELECT * FROM `wishlist` WHERE session_id='$session_id' AND product_id=$get_product_id";
+        $result_query = mysqli_query($conn, $select_query);
+        $num_of_rows = mysqli_num_rows($result_query);
+
+        if ($num_of_rows > 0) {
+            echo "<script>alert('Item is already in your wishlist')</script>";
+        } else {
+            // Insert the item into the wishlist table
+            $insert_query = "INSERT INTO `wishlist` (session_id, product_id, quantity) VALUES ('$session_id', $get_product_id, $quantity)";
+            $result_insert = mysqli_query($conn, $insert_query);
+            if ($result_insert) {
+                echo "<script>alert('Item added to wishlist')</script>";
+            }
+        }
+    }
+}
+
+
+
 
 function cart_item()
 {

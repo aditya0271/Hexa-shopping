@@ -209,7 +209,7 @@ include ('includes/header1.php');
                                         <div class="mt-2 align-items-center">
                                                     <a href="single-product.php?id=<?= $row["product_id"] ?>"
                                                         class="btn btn-light btn-lg btn-block position-relative">
-                                                        <i class="bi bi-heart  top-50 start-0 translate-middle-y ms-2"></i>
+                                                        <i class="bi bi-heart  top-50 stJart-0 translate-middle-y ms-2"></i>
                                                         <span class="ms-">WISHLIST</span>
                                                     </a>
                                                 </div>
