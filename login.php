@@ -9,7 +9,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve form data
     $username = $_POST["username"];
     $password = $_POST["password"];
-
+    echo($username) ;
+    echo($password);
     // Validate form data (you can add more validation as needed)
     if (empty($username) || empty($password)) {
         $error = "Username/Email and password are required";
@@ -26,6 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 session_start();
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['username'] = $user['username'];
+                $_SESSION['email'] = $user['email'];
                 // Redirect to dashboard or any other page after successful login
                 header("Location: index.php");
                 exit();

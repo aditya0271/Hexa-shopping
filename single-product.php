@@ -118,17 +118,11 @@ include ('includes/header1.php');
                                     </div>
                                 </div>
                             </form>
-                             <form action="single-product.php" method="GET">
-                                <input type="hidden" name="add_to_wishlist" value="<?php echo $product['product_id']; ?>">
-                                <button type="submit" class="btn btn-dark"><i class="bi bi-cart-fill"></i> Add to wishlist</button>
-                                <br>
-                                <br>
+                            <form action="index.php?add_to_wish=<?php echo $product_id; ?>" method="POST" class="mb-3">
+                                <input type="hidden" name="add_to_wishlist" value="1">
+                                <button type="submit">Add to Wishlist</button>
                             </form>
 
-
-
-                            <a href="#" class="btn btn-secondary"><i class="bi bi-heart-fill"></i> Wishlist <br></a>
-                            <a href="#" class="btn btn-secondary"><i class="bi bi-heart-fill"></i> Go back <br></a>
                             <h6>
                                 <strong> <br>DELIVERY OPTIONS <i class="bi bi-truck"></i></strong>
                             </h6>
@@ -148,7 +142,6 @@ include ('includes/header1.php');
                                 </li>
                                 </p>
                             </ul>
-                            <!-- Additional product details can be displayed here -->
                     </div>
                 </div>
             </div>

@@ -1,9 +1,9 @@
+
 <?php
 $servername = "localhost";
 $username = "root";
 $password = "Admin@123";
 $database = "shopping";
-//database
 // Create connection
 $conn = new mysqli($servername, $username, $password, $database);
 
@@ -11,19 +11,25 @@ $conn = new mysqli($servername, $username, $password, $database);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-
 // echo "Connected successfully";
+?>
 
 
+<?php
+ // Start the session
+session_start();
 
-session_start(); // Start the session
 
-
+// Returns the session ID
 function get_session_id()
 {
-    return session_id(); // Returns the session ID
+    return session_id(); 
 }
+?>
 
+
+<?php
+//  Function for storing items in cart
 function cart()
 {
     global $conn; // Assuming $conn is your database connection
@@ -62,51 +68,12 @@ function cart()
         }
     }
 }
-
-// add to wishlist page
-
-function wishcart()
-{
-    global $conn; // Assuming $conn is your database connection
-    if (isset($_GET['add_to_wishlist'])) {
-        $session_id = get_session_id(); // Assuming get_session_id() retrieves the session ID
-
-        // Get the product ID from the URL parameter
-        $get_product_id = $_GET['add_to_wishlist'];
-
-        // Sanitize input to prevent SQL injection
-        $session_id = mysqli_real_escape_string($conn, $session_id);
-        $get_product_id = mysqli_real_escape_string($conn, $get_product_id);
-
-        // Check if the quantity is provided by the user
-        if (isset($_POST['quantity']) && is_numeric($_POST['quantity']) && $_POST['quantity'] > 0) {
-            $quantity = $_POST['quantity'];
-        } else {
-            // Default to 1 if quantity is not provided or invalid
-            $quantity = 1;
-        }
-
-        // Check if the item is already in the wishlist
-        $select_query = "SELECT * FROM `wishlist` WHERE session_id='$session_id' AND product_id=$get_product_id";
-        $result_query = mysqli_query($conn, $select_query);
-        $num_of_rows = mysqli_num_rows($result_query);
-
-        if ($num_of_rows > 0) {
-            echo "<script>alert('Item is already in your wishlist')</script>";
-        } else {
-            // Insert the item into the wishlist table
-            $insert_query = "INSERT INTO `wishlist` (session_id, product_id, quantity) VALUES ('$session_id', $get_product_id, $quantity)";
-            $result_insert = mysqli_query($conn, $insert_query);
-            if ($result_insert) {
-                echo "<script>alert('Item added to wishlist')</script>";
-            }
-        }
-    }
-}
+cart();
+?>
 
 
-
-
+<!-- function to get no.of items in cart -->
+<?php
 function cart_item()
 {
     global $conn; // Assuming $conn is your database connection
@@ -124,8 +91,11 @@ function cart_item()
 }
 
 // Call the cart function after form submission
-cart();
+
 ?>
+
+
+<!-- function get  -->
 <?php
 function cart_price()
 {
@@ -150,6 +120,9 @@ function cart_price()
     echo $total; // Output total price
 }
 ?>
+
+
+<!-- function to show cart items on cart page -->
 <?php
 function cart_items() {
     global $conn;
@@ -213,6 +186,9 @@ function cart_items() {
         </script>';
 }
 ?>
+
+<!-- function to order summary -->
+
 <?php
 function calculate_order_summary() {
     global $conn;
@@ -249,5 +225,137 @@ function calculate_order_summary() {
             <p><strong>Estimated Total:</strong> RS. ' .  $total . '</p>
             <button type="button" class="btn btn-dark mt-3">Proceed to Checkout</button>
           </div>';
+}
+?>
+
+ <!-- Function for storing items in wishlist -->
+
+<?php
+function wish()
+{
+    global $conn; // Assuming $conn is your database connection
+    if (isset($_GET['add_to_wish'])) {
+        $session_id = get_session_id();
+        $get_product_id = $_GET['add_to_wish'];
+
+        // Sanitize input to prevent SQL injection
+        $session_id = mysqli_real_escape_string($conn, $session_id);
+        $get_product_id = mysqli_real_escape_string($conn, $get_product_id);
+
+        // Check if the quantity is provided by the user
+        if (isset($_POST['quantity']) && is_numeric($_POST['quantity']) && $_POST['quantity'] > 0) {
+            $quantity = $_POST['quantity'];
+        } else {
+            // Default to 1 if quantity is not provided or invalid
+            $quantity = 1;
+        }
+
+        $select_query = "SELECT * FROM `wish` WHERE session_id='$session_id' AND product_id=$get_product_id";
+        $result_query = mysqli_query($conn, $select_query);
+        $num_of_rows = mysqli_num_rows($result_query);
+
+        if ($num_of_rows > 0) {
+            echo "<script>alert('Already in your Wishlists')</script>";
+            // echo "<script>window.open('index.php', '_self')</script>";
+        } else {
+            // Insert the item into the cart_details table
+            $insert_query = "INSERT INTO `wish` (session_id, product_id, quantity) VALUES ('$session_id', $get_product_id, $quantity)";
+
+            $result_insert = mysqli_query($conn, $insert_query);
+            if ($result_insert) {
+                echo "<script>alert('Item added to your wishlist successfully')</script>";
+                // echo "<script>window.open('index.php', '_self')</script>";
+            }
+        }
+    }
+}
+wish();
+?>
+
+
+<!-- function to get no.of items in cart -->
+<?php
+function wish_item()
+{
+    global $conn; // Assuming $conn is your database connection
+
+    // Get the session ID
+    $session_id = get_session_id();
+
+    // Fetch the current cart items count
+    $select_query = "SELECT * FROM `wish` WHERE session_id='$session_id'";
+    $result_query = mysqli_query($conn, $select_query);
+    $count_cart_items = mysqli_num_rows($result_query);
+
+    // Display the count of cart items
+    echo $count_cart_items;
+}
+
+// Call the cart function after form submission
+
+?>
+
+
+<?php
+function wish_items() {
+    global $conn;
+
+    // Get the session ID
+    $session_id = get_session_id();
+
+    // Query to fetch cart items
+    $cart_query = "SELECT p.image1, p.brand_name, p.product_id, p.product_name, p.product_price, c.quantity FROM wish c JOIN product_details p ON c.product_id = p.product_id WHERE c.session_id ='$session_id'";
+    $result_query = mysqli_query($conn, $cart_query);
+
+    // Start of the table
+    echo '<table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Image</th>
+                    <th scope="col">Brand</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Total Price</th>
+                    <th scope="col">Remove</th>
+                </tr>
+            </thead>
+            <tbody>';
+
+    // Display cart items
+    while ($row = mysqli_fetch_assoc($result_query)) {
+        $total_price = $row['product_price'] * $row['quantity'];
+        echo '<tr>
+                <td><img class="img-fluid" style="max-width: 100px;" src="./image/' . $row['image1'] . '"></td>
+                <td>' . $row['brand_name'] . '</td>
+                <td>' . $row['product_name'] . '</td>
+                <td>
+                    <input type="number" class="quantity-input" id="qty_' . $row['product_id'] . '" style="width: 50px; text-align: center;" value="' . $row['quantity'] . '" min="1" data-price="' . $row['product_price'] . '" onchange="updatePrice(this, ' . $row['product_id'] . ')">
+                </td>
+                <td>RS. ' . $row['product_price'] . '</td>
+                <td id="total_' . $row['product_id'] . '">RS. ' . $total_price . '</td>
+                <td><button class="btn btn-danger remove-item" data-productid="' . $row['product_id'] . '"><i class="fas fa-trash-alt"></i></button></td>
+            </tr>';
+    }
+
+    // End of the table
+    echo '</tbody>
+        </table>';
+
+    // JavaScript for handling item removal
+    echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const removeButtons = document.querySelectorAll(".remove-item");
+                removeButtons.forEach(button => {
+                    button.addEventListener("click", function() {
+                        const productId = this.getAttribute("data-productid");
+                        removeCartItem(productId);
+                    });
+                });
+
+                function removeCartItem(productId) {
+                }
+            });
+        </script>';
 }
 ?>
