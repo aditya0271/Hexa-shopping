@@ -223,12 +223,12 @@ function calculate_order_summary() {
             <p><strong>Subtotal:</strong> RS. ' .  $subtotal . '</p>
             <p><strong>Estimated Shipping:</strong> RS. ' .  $shippingCost . '</p>
             <p><strong>Estimated Total:</strong> RS. ' .  $total . '</p>
-            <button type="button" class="btn btn-dark mt-3">Proceed to Checkout</button>
+           
           </div>';
 }
 ?>
 
- <!-- Function for storing items in wishlist -->
+<!-- Function for storing items in wishlist -->
 
 <?php
 function wish()
@@ -307,40 +307,27 @@ function wish_items() {
     $cart_query = "SELECT p.image1, p.brand_name, p.product_id, p.product_name, p.product_price, c.quantity FROM wish c JOIN product_details p ON c.product_id = p.product_id WHERE c.session_id ='$session_id'";
     $result_query = mysqli_query($conn, $cart_query);
 
-    // Start of the table
-    echo '<table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Image</th>
-                    <th scope="col">Brand</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Total Price</th>
-                    <th scope="col">Remove</th>
-                </tr>
-            </thead>
-            <tbody>';
+    // Start of the wishlist container
+    echo '<div style="max-width: 100%; margin: 20px auto; padding: 20px; background-color: #f4f4f4; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+            <div style="display: flex; flex-wrap: wrap; ">';
 
-    // Display cart items
+    // Display wishlist items
     while ($row = mysqli_fetch_assoc($result_query)) {
-        $total_price = $row['product_price'] * $row['quantity'];
-        echo '<tr>
-                <td><img class="img-fluid" style="max-width: 100px;" src="./image/' . $row['image1'] . '"></td>
-                <td>' . $row['brand_name'] . '</td>
-                <td>' . $row['product_name'] . '</td>
-                <td>
-                    <input type="number" class="quantity-input" id="qty_' . $row['product_id'] . '" style="width: 50px; text-align: center;" value="' . $row['quantity'] . '" min="1" data-price="' . $row['product_price'] . '" onchange="updatePrice(this, ' . $row['product_id'] . ')">
-                </td>
-                <td>RS. ' . $row['product_price'] . '</td>
-                <td id="total_' . $row['product_id'] . '">RS. ' . $total_price . '</td>
-                <td><button class="btn btn-danger remove-item" data-productid="' . $row['product_id'] . '"><i class="fas fa-trash-alt"></i></button></td>
-            </tr>';
+        echo '<div style="width: 30%; margin-right: 20px; justify-content-center">
+                <div style="border: 1px solid #ccc; border-radius: 5px; overflow: hidden; background-color: #fff;">
+                    <img src="./image/' . $row['image1'] . '" alt="' . $row['product_name'] . $row['brand_name'] . '" style="width: 100%; height: auto; border-radius: 5px;">
+                    <div style="padding: 10px;">
+                        <span style="font-size: 18px; margin-bottom: 10px; display: block;">' . $row['product_name'] . '</span>
+                        <span style="font-size: 18px; margin-bottom: 10px; display: block;">' . $row['brand_name'] . '</span>
+                        <button class="btn btn-danger remove-item justify-content-center">Remove Items</button>
+                    </div>
+                </div>
+
+            </div>';
     }
 
-    // End of the table
-    echo '</tbody>
-        </table>';
+    // End of the wishlist container
+    echo '</div></div>';
 
     // JavaScript for handling item removal
     echo '<script>
@@ -359,3 +346,4 @@ function wish_items() {
         </script>';
 }
 ?>
+

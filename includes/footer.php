@@ -1,67 +1,63 @@
- <!-- ***** Footer Start ***** -->
- <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3">
-                    <div class="first-item">
-                        <div class="logo">
-                            <img src="assets/images/white-logo.png" alt="hexashop ecommerce templatemo">
-                        </div>
-                        <ul>
-                            <li><a href="#">16501 Collins Ave, Sunny Isles Beach, FL 33160, United States</a></li>
-                            <li><a href="#">hexashop@company.com</a></li>
-                            <li><a href="#">010-020-0340</a></li>
-                        </ul>
+<!-- ***** Footer Start ***** -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="first-item">
+                    <div class="logo">
+                        <img src="assets/images/white-logo.png" alt="hexashop ecommerce templatemo">
                     </div>
-                </div>
-                <div class="col-lg-3">
-                    <h4>Shopping &amp; Categories</h4>
                     <ul>
-                        <li><a href="#men">Men’s Shopping</a></li>
-                        <li><a href="#women">Women’s Shopping</a></li>
-                        <li><a href="#kids">Kid's Shopping</a></li>
+                        <li><a href="#">16501 Collins Ave, Sunny Isles Beach, FL 33160, United States</a></li>
+                        <li><a href="#">hexashop@company.com</a></li>
+                        <li><a href="#">010-020-0340</a></li>
                     </ul>
                 </div>
-                <div class="col-lg-3">
-                    <h4>Useful Links</h4>
+            </div>
+            <div class="col-lg-3">
+                <h4>Shopping &amp; Categories</h4>
+                <ul>
+                    <li><a href="#men">Men’s Shopping</a></li>
+                    <li><a href="#women">Women’s Shopping</a></li>
+                    <li><a href="#kids">Kid's Shopping</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3">
+                <h4>Useful Links</h4>
+                <ul>
+                    <li><a href="index.php#top">Homepage</a></li>
+                    <li><a href="about.php">About Us</a></li>
+                    <li><a href="#">Help</a></li>
+                    <li><a href="contact.php">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-3">
+                <h4>Help &amp; Information</h4>
+                <ul>
+                    <li><a href="#">Help</a></li>
+                    <li><a href="#">FAQ's</a></li>
+                    <li><a href="#">Shipping</a></li>
+                    <li><a href="#">Tracking ID</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-12">
+                <div class="under-footer">
+                    <p>Copyright © 2022 HexaShop Co., Ltd. All Rights Reserved</p>
                     <ul>
-                        <li><a href="#">Homepage</a></li>
-                        <li><a href="about.php">About Us</a></li>
-                        <li><a href="#">Help</a></li>
-                        <li><a href="contact.php">Contact Us</a></li>
+                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                        <li><a href="#"><i class="fa fa-behance"></i></a></li>
                     </ul>
-                </div>
-                <div class="col-lg-3">
-                    <h4>Help &amp; Information</h4>
-                    <ul>
-                        <li><a href="#">Help</a></li>
-                        <li><a href="#">FAQ's</a></li>
-                        <li><a href="#">Shipping</a></li>
-                        <li><a href="#">Tracking ID</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-12">
-                    <div class="under-footer">
-                        <p>Copyright © 2022 HexaShop Co., Ltd. All Rights Reserved.
-
-                            <br>Design: <a href="https://templatemo.com" target="_parent"
-                                title="free css templates">TemplateMo</a>
-                        </p>
-                        <ul>
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                            <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
-    </footer>
-     <!-- ***** Footer Start ***** -->
+    </div>
+</footer>
+<!-- ***** Footer Start ***** -->
 
-     <!-- jQuery -->
-    <script src="assets/js/jquery-2.1.0.min.js"></script>
+<!-- jQuery -->
+<script src="assets/js/jquery-2.1.0.min.js"></script>
 
 <!-- Bootstrap -->
 <script src="assets/js/popper.js"></script>
@@ -99,32 +95,31 @@
     });
 
 
-// Checkout page
+    // Checkout page
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const paymentOptions = document.querySelectorAll('input[name="paymentMethod"]');
-            const upiInput = document.getElementById('upiInput');
+        const upiInput = document.getElementById('upiInput');
 
-            function toggleUPIInput() {
+        function toggleUPIInput() {
                 if (document.getElementById('upi').checked) {
-                    upiInput.style.display = 'block';
+            upiInput.style.display = 'block';
                 } else {
-                    upiInput.style.display = 'none';
+            upiInput.style.display = 'none';
                 }
             }
 
             paymentOptions.forEach(option => {
-                option.addEventListener('change', toggleUPIInput);
+            option.addEventListener('change', toggleUPIInput);
             });
         });
-    </script>
+</script>
 
 
 </script>
 <!-- Back to Top -->
-<a href="#" class="btn btn-secondary border-3 border-dark rounded-circle back-to-top"><i
-        class="fa fa-arrow-up"></i></a>
+<a href="#" class="btn btn-secondary border-3 border-dark rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
 
 <!-- JavaScript Libraries -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -135,8 +130,8 @@
 <script src="lib/owlcarousel/owl.carousel.min.js"></script>
 <!--Checkout page -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <!-- Template Javascript -->
 <script src="/assets/js/main.js"></script>

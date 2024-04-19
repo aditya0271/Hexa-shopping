@@ -24,6 +24,8 @@ include ('includes/header1.php');
 
             <div class="col-md-8">
                 <?php calculate_order_summary(); ?>
+                <a href="check-out.php" class="btn btn-dark mt-3">Proceed to Checkout</a>
+
             </div>
 
             <!-- footer -->

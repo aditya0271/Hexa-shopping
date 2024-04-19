@@ -17,7 +17,7 @@ include ('includes/header1.php');
                     </span></h2>
 
                 <!-- Display cart items using the cart_items() function -->
-                <!-- <?php wish_items();?> -->
+                <?php wish_items();?> 
         
 
 </body>

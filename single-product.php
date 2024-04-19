@@ -44,14 +44,28 @@ include ('includes/header1.php');
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6">
-                        <img src="./images/<?php echo $product['image1']; ?>" alt=".<?php echo $product['product_name']; ?>">
-                        <br>
-                        <br>
-                        <img src="./images/<?php echo $product['image2']; ?>" alt=".<?php echo $product['product_name']; ?>">
-                        <br>
-                        <br>
-                        <img src="./images/<?php echo $product['image3']; ?>" alt=".<?php echo $product['product_name']; ?>">
+                        <div class="" style="display: flex">
+                            <div class="" style="display:flex; flex-direction:column; flex: 20%">
+                                <img src="./images/<?php echo $product['image1']; ?>" class="d-block w-100"
+                                    alt="<?php echo $product['product_name']; ?>" id="image1">
+
+                                <img src="./images/<?php echo $product['image2']; ?>" class="d-block w-100"
+                                    alt="<?php echo $product['product_name']; ?>" id="image2">
+
+                                <img src="./images/<?php echo $product['image3']; ?>" class="d-block w-100"
+                                    alt="<?php echo $product['product_name']; ?>" id="image3">
+
+                            </div>
+                            <div class="w-80" style="display:flex; flex: 80%">
+                                <div class="">
+                                    <div class="" id="largeImage">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
 
                     <div class="col-lg-6">
                         <h2>
@@ -64,10 +78,7 @@ include ('includes/header1.php');
                                 </h4>
                             </span>
                             </h6>
-                            <!-- <form action="index.php?add_to_cart=<?php echo $product_id; ?>" method="POST">
-                                <input type="number" name="quantity" value="1" min="1">
-                                <button type="submit">Add to Cart</button>
-                            </form> -->
+
 
 
                             <h3>RS.
@@ -78,19 +89,12 @@ include ('includes/header1.php');
                             <label for="size-selector" class="mt-8 d-inline">
                                 <h6>Select Size:</h6><br>
                             </label>
-                            <div class="btn-group size-selector mt-8" role="group" aria-label="Size Selector">
-                                <button type="button" class="btn btn-outline-primary rounded-circle mr-2">38</button>
-                                <button type="button" class="btn btn-outline-primary rounded-circle mr-2">40</button>
-                                <button type="button" class="btn btn-outline-primary rounded-circle mr-2">42</button>
-                                <button type="button" class="btn btn-outline-primary rounded-circle">46</button>
+                            <div class="btn-group size-selector mt-6 " role="group" aria-label="Size Selector">
+                                <button type="button" class="btn btn-outline-dark rounded-circle mr-2">38</button>
+                                <button type="button" class="btn btn-outline-dark rounded-circle mr-2">40</button>
+                                <button type="button" class="btn btn-outline-dark rounded-circle mr-2">42</button>
+                                <button type="button" class="btn btn-outline-dark rounded-circle">46</button>
                             </div>
-                            <br>
-                            <br>
-
-
-                            <!-- <span>
-                            <p>inclusive of all taxes</p>
-                        </span><br> -->
                             <br>
 
                             <p>
@@ -98,32 +102,28 @@ include ('includes/header1.php');
                                 <br>
                                 <br>
                             </p>
-                            <!-- <form action="single-product.php" method="GET">
-                                <input type="hidden" name="add_to_cart" value="<?php echo $product['product_id']; ?>">
-                                <button type="submit" class="btn btn-dark"><i class="bi bi-cart-fill"></i> Add to Cart</button>
-                                <br>
-                                <br>
-                            </form> -->
-                            <form action="index.php?add_to_cart=<?php echo $product_id; ?>" method="POST" class="mb-3">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <input type="number" name="quantity" value="1" min="1"
-                                            class="form-control form-control-sm">
-                                    </div>
+
+                            <form action="index.php?add_to_cart=<?php echo $product_id; ?>" method="POST"
+                                class="mb-3 mt-2">
+                            <div class="row mt-2">
+                                <div class="col-md-2">
+                                    <input type="number" name="quantity" value="1" min="1" class="form-control form-control-sm">
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-12 mt-2">
-                                        <button type="submit" class="btn btn-dark"><i class="bi bi-cart-fill"></i> Add to
-                                            Cart</button>
-                                    </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-12 mt-2">
+                                    <button type="submit" name="add_to_cart" class="btn btn-dark"><i class="bi bi-cart-fill"></i>Add to
+                                        Cart</button>
                                 </div>
+                            </div>
                             </form>
-                            <form action="index.php?add_to_wish=<?php echo $product_id; ?>" method="POST" class="mb-3">
+                            <form action="index.php?add_to_wish=<?php echo $product_id; ?>" method="POST"
+                                class="mt-3 display-flex">
                                 <input type="hidden" name="add_to_wishlist" value="1">
-                                <button type="submit">Add to Wishlist</button>
+                                <button type="submit" class="btn btn-dark"><i class="bi bi-cart-fill"></i>Wishlist</button>
                             </form>
 
-                            <h6>
+                            <h6 class="mt-4">
                                 <strong> <br>DELIVERY OPTIONS <i class="bi bi-truck"></i></strong>
                             </h6>
 
@@ -160,7 +160,32 @@ include ('includes/header1.php');
     include ('includes/footer.php');
     ?>
     <!-- Footer Area ends -->
+    <script>
+        const image1 = document.getElementById("image1");
+        const image2 = document.getElementById("image2");
+        const image3 = document.getElementById("image3");
+        const largeImage = document.getElementById("largeImage");
+        let selectedImage = image1;
+        largeImage.innerHTML = `<img src=${selectedImage.currentSrc} class='d-block w-100' >`
 
+        image1.addEventListener("click", function(){
+            selectedImage = image1;
+            largeImage.innerHTML = `<img src=${selectedImage.currentSrc} class='d-block w-100' >`;
+        }, false)
+        
+        image2.addEventListener("click", function(){
+            selectedImage = image2;
+            largeImage.innerHTML = `<img src=${selectedImage.currentSrc} class='d-block w-100' >`;
+        }, false)
+
+        image3.addEventListener("click", function(){
+            selectedImage = image3;
+            largeImage.innerHTML = `<img src=${selectedImage.currentSrc} class='d-block w-100' >`;
+        }, false)
+
+
+
+    </script>
 
 </body>
 

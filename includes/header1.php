@@ -61,7 +61,7 @@
 
         <div class="container-fluid px-0">
             <nav class="navbar navbar-light bg-secondary navbar-expand-xl">
-                <a href="index.html" class="navbar-brand">
+                <a href="index.php" class="navbar-brand">
                     <h1 class="text-light display-6">HEXASHOP</h1>
                 </a>
                 <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse"
@@ -70,10 +70,10 @@
                 </button>
                 <div class="collapse navbar-collapse bg-white shadow-lg" id="navbarCollapse">
                     <div class="navbar-nav mx-auto ">
-                        <a href="#top" class="nav-item nav-link active">Home</a>
-                        <a href="#men" class="nav-item nav-link">Men's</a>
-                        <a href="#women" class="nav-item nav-link">Women's</a>
-                        <a href="#kids" class="nav-item nav-link">Kid's</a>
+                        <a href="index.php#top" class="nav-item nav-link active">Home</a>
+                        <a href="index.php#men" class="nav-item nav-link">Men's</a>
+                        <a href="index.php#women" class="nav-item nav-link">Women's</a>
+                        <a href="index.php#kids" class="nav-item nav-link">Kid's</a>
                         <div class="nav-item dropdown">
                             <!-- <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                     <div class="dropdown-menu m-2 bg-secondary rounded-0">
@@ -102,7 +102,7 @@
                                 </sup>
                             </span>
                         </a>
-                        <a href="wishlist.php" class="position-relative my-1 text-dark" id="add-to-cart">
+                        <a href="wishlist.php" class="position-relative my-1 text-dark" id="add-to-wishlist">
                             <!-- Added wishlist.php as the wishlist page -->
                             <i class="fa fa-heart fa-2x mx-1 "></i> <!-- Changed the icon to a heart -->
                         </a>
@@ -118,7 +118,7 @@
                                 <!-- Display username and email -->
                                 <li><a class="dropdown-item" href="#">Hello <?php echo $_SESSION['username']; ?></a>
                                 </li>
-                                <li><a class="dropdown-item" href="#">Email: <?php echo $_SESSION['email']; ?></a></li>
+                                <li><a class="dropdown-item" href="#"><?php echo $_SESSION['email']; ?></a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
