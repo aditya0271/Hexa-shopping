@@ -209,8 +209,8 @@ include ('includes/header1.php');
                                         <div class="mt-2 align-items-center">
                                                     <a href="single-product.php?id=<?= $row["product_id"] ?>"
                                                         class="btn btn-light btn-lg btn-block position-relative">
-                                                        <i class="bi bi-heart  top-50 stJart-0 translate-middle-y ms-2"></i>
-                                                        <span class="ms-">WISHLIST</span>
+
+                                                        <span class="ms-">QUICK VIEW</span>
                                                     </a>
                                                 </div>
                                         </div>
@@ -277,10 +277,10 @@ include ('includes/header1.php');
                                             </a>
                                             <div class="hover-content">
                                                 <div class="mt-2 align-items-center">
-                                                    <a href="single-product.php?id=<?= $row["product_id"] ?>"
+                                                <a href="single-product.php?id=<?= $row["product_id"] ?>"
                                                         class="btn btn-light btn-lg btn-block position-relative">
-                                                        <i class="bi bi-heart  top-50 start-0 translate-middle-y ms-2"></i>
-                                                        <span class="ms-">WISHLIST</span>
+
+                                                        <span class="ms-">QUICK VIEW</span>
                                                     </a>
                                                 </div>
                                             </div>
@@ -343,11 +343,11 @@ include ('includes/header1.php');
                                                     <img src="./images/<?= $row["image1"] ?>" alt="<?= $row["product_name"] ?>">
                                                     <div class="hover-content">
                                                         <div class="mt-2 align-items-center">
-                                                            <a href="single-product.php?id=<?= $row["product_id"] ?>"
-                                                                class="btn btn-light btn-lg btn-block position-relative">
-                                                                <i class="bi bi-heart  top-50 start-0 translate-middle-y ms-2"></i>
-                                                                <span class="ms-">WISHLIST</span>
-                                                            </a>
+                                                        <a href="single-product.php?id=<?= $row["product_id"] ?>"
+                                                        class="btn btn-light btn-lg btn-block position-relative">
+
+                                                        <span class="ms-">QUICK VIEW</span>
+                                                    </a>
                                                         </div>
                                                     </div>
                                                 </a>
