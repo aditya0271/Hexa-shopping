@@ -30,19 +30,34 @@ include ('includes/header1.php');
         </div>
     </div>
 
-
+    <div>
     <!-- ***** Main Banner Area End ***** -->
     <div class="container">
-        <h2><i class="bi bi-geo-alt-fill"></i>Delivery Address</h2>
-        <P>We will deliver your order to this address</P>
-        <button class="btn btn-primary" onclick="toggleSidebar()">Add Address
-            <i class="bi bi-plus"></i></button>
-    </div>
-    <div>
+        <h2><i class="bi bi-geo-alt-fill"></i> Delivery Address</h2>
+        <p>We will deliver your order to this address</p>
+
+
+        <button class="btn btn-dark" onclick="toggleSidebar()">Add Address <i class="bi bi-plus"></i></button>
+
         <?php
         include ('includes/sidebar.php');
         ?>
     </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h2><i class="bi bi-truck"></i> Expected Delivery</h2>
+                <p>Estimated delivery dates for your order</p>
+            </div>
+            <div class="col-md-4 border p-3">
+                <?php calculate_order_summary(); ?>
+                <a href="check-out.php" class="btn btn-dark mx-5 m-2">Proceed to Payment</a>
+            </div>
+        </div>
+    </div>
+</div>
+
 
     <script>
         function toggleSidebar() {
