@@ -1,6 +1,8 @@
 <?php
 include('includes/sidebar');
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+
     // Retrieve form data
     $name = $_POST['name'];
     $mobile = $_POST['mobile'];
@@ -13,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $address_type = $_POST['address-type'];
 
     // SQL query to insert data into the table
-    $sql = "INSERT INTO address_info (name, mobile, pincode, locality, flatno, landmark, city, state, address_type) 
+    $sql = "INSERT INTO customer_add_info (name, mobile, pincode, locality, flatno, landmark, city, state, address_type) 
             VALUES ('$name', '$mobile', '$pincode', '$locality', '$flatno', '$landmark', '$city', '$state', '$address_type')";
 
     // Execute the query

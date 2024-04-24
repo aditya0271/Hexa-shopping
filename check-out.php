@@ -1,8 +1,6 @@
 <?php
 include ('includes/config.php');
 include ('includes/header1.php');
-
-
 ?>
 
 
@@ -48,7 +46,7 @@ include ('includes/header1.php');
         <!-- Payment Form -->
         <form method="POST" action="process_payment.php">
             <div class="form-group">
-                <label>Payment Method:</label><br>
+                <h4>Payment Method:</h4>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="payment_method" id="cod" value="cod" required>
                     <label class="form-check-label" for="cod">Cash on Delivery</label>
@@ -77,12 +75,12 @@ include ('includes/header1.php');
             <div id="cod_details" style="display: none;">
                 <p>Cash on Delivery selected. No further payment details required.</p>
             </div>
-            <button type="submit" class="btn btn-primary">Pay Now</button>
+            <button type="submit" class="btn btn-dark">Pay Now</button>
         </form>
     </div>
     <div class="col-md-4 p-4 mx-4">
         <?php calculate_order_summary(); ?>
-        <a href="check-out.php" class="btn btn-dark mx-5 m-2">Proceed to Payment</a>
+        <!-- <a href="check-out.php" class="btn btn-dark mx-5 m-2">Proceed to Payment</a> -->
     </div>
 </div>
 </body>

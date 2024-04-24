@@ -18,15 +18,34 @@ if ($conn->connect_error) {
 <?php
  // Start the session
 session_start();
-
-
 // Returns the session ID
 function get_session_id()
 {
     return session_id(); 
 }
-?>
 
+
+function checkLogin() {
+    // Check if the 'user_id' session variable is set
+    if(isset($_SESSION['user_id'])) {
+        return true; // User is logged in
+    } else {
+        return false; // User is not logged in
+    }
+}
+
+// Example usage
+if(checkLogin()) {
+    echo "User is logged in.<br>";
+} else {
+    echo "User is not logged in.<br>";
+}
+
+echo ($_SESSION['user_id']);
+
+
+
+?>
 
 <?php
 //  Function for storing items in cart
@@ -250,7 +269,7 @@ function wish()
             $quantity = 1;
         }
 
-        $select_query = "SELECT * FROM `wish` WHERE session_id='$session_id' AND product_id=$get_product_id";
+        $select_query = "SELECT * FROM `wishlist_details` WHERE session_id='$session_id' AND product_id=$get_product_id";
         $result_query = mysqli_query($conn, $select_query);
         $num_of_rows = mysqli_num_rows($result_query);
 
@@ -259,7 +278,7 @@ function wish()
             // echo "<script>window.open('index.php', '_self')</script>";
         } else {
             // Insert the item into the cart_details table
-            $insert_query = "INSERT INTO `wish` (session_id, product_id, quantity) VALUES ('$session_id', $get_product_id, $quantity)";
+            $insert_query = "INSERT INTO `wishlist_details` (session_id, product_id, quantity) VALUES ('$session_id', $get_product_id, $quantity)";
 
             $result_insert = mysqli_query($conn, $insert_query);
             if ($result_insert) {
@@ -283,7 +302,7 @@ function wish_item()
     $session_id = get_session_id();
 
     // Fetch the current cart items count
-    $select_query = "SELECT * FROM `wish` WHERE session_id='$session_id'";
+    $select_query = "SELECT * FROM `wishlist_details` WHERE session_id='$session_id'";
     $result_query = mysqli_query($conn, $select_query);
     $count_cart_items = mysqli_num_rows($result_query);
 
@@ -304,7 +323,7 @@ function wish_items() {
     $session_id = get_session_id();
 
     // Query to fetch cart items
-    $cart_query = "SELECT p.image1, p.brand_name, p.product_id, p.product_name, p.product_price, c.quantity FROM wish c JOIN product_details p ON c.product_id = p.product_id WHERE c.session_id ='$session_id'";
+    $cart_query = "SELECT p.image1, p.brand_name, p.product_id, p.product_name, p.product_price, c.quantity FROM wishlist_details c JOIN product_details p ON c.product_id = p.product_id WHERE c.session_id ='$session_id'";
     $result_query = mysqli_query($conn, $cart_query);
 
     // Start of the wishlist container

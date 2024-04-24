@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // You should perform proper validation and sanitation here
 
     // Query to check if the user exists
-    $query = "SELECT * FROM users WHERE username = '$username' AND password = '$password'";
+    $query = "SELECT * FROM admin_user WHERE username = '$username' AND password = '$password'";
     $result = $conn->query($query);
 
     // Check if the query was successful and if the user exists
