@@ -34,15 +34,6 @@ function checkLogin() {
     }
 }
 
-// Example usage
-if(checkLogin()) {
-    echo "User is logged in.<br>";
-} else {
-    echo "User is not logged in.<br>";
-}
-
-echo ($_SESSION['user_id']);
-
 
 
 ?>
@@ -76,8 +67,9 @@ function cart()
             echo "<script>alert('This item is already in your cart')</script>";
             // echo "<script>window.open('index.php', '_self')</script>";
         } else {
+            $user = $_SESSION['user_id'];
             // Insert the item into the cart_details table
-            $insert_query = "INSERT INTO `cart_details` (session_id, product_id, quantity) VALUES ('$session_id', $get_product_id, $quantity)";
+            $insert_query = "INSERT INTO `cart_details` (session_id, product_id, quantity, user_id) VALUES ('$session_id', $get_product_id, $quantity, $user)";
 
             $result_insert = mysqli_query($conn, $insert_query);
             if ($result_insert) {
@@ -142,6 +134,7 @@ function cart_price()
 
 
 <!-- function to show cart items on cart page -->
+
 <?php
 function cart_items() {
     global $conn;
@@ -153,58 +146,85 @@ function cart_items() {
     $cart_query = "SELECT p.image1, p.brand_name, p.product_id, p.product_name, p.product_price, c.quantity FROM cart_details c JOIN product_details p ON c.product_id = p.product_id WHERE c.session_id ='$session_id'";
     $result_query = mysqli_query($conn, $cart_query);
 
-    // Start of the table
-    echo '<table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Image</th>
-                    <th scope="col">Brand</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Total Price</th>
-                    <th scope="col">Remove</th>
-                </tr>
-            </thead>
-            <tbody>';
+    // Check if there are any cart items
+    $num_items = mysqli_num_rows($result_query);
 
-    // Display cart items
-    while ($row = mysqli_fetch_assoc($result_query)) {
-        $total_price = $row['product_price'] * $row['quantity'];
-        echo '<tr>
-                <td><img class="img-fluid" style="max-width: 100px;" src="./image/' . $row['image1'] . '"></td>
-                <td>' . $row['brand_name'] . '</td>
-                <td>' . $row['product_name'] . '</td>
-                <td>
-                    <input type="number" class="quantity-input" id="qty_' . $row['product_id'] . '" style="width: 50px; text-align: center;" value="' . $row['quantity'] . '" min="1" data-price="' . $row['product_price'] . '" onchange="updatePrice(this, ' . $row['product_id'] . ')">
-                </td>
-                <td>RS. ' . $row['product_price'] . '</td>
-                <td id="total_' . $row['product_id'] . '">RS. ' . $total_price . '</td>
-                <td><button class="btn btn-danger remove-item" data-productid="' . $row['product_id'] . '"><i class="fas fa-trash-alt"></i></button></td>
-            </tr>';
-    }
+    if ($num_items > 0) {
+        // Start of the table
+        echo '<table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Image</th>
+                        <th scope="col">Brand</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Total Price</th>
+                        <th scope="col">Remove</th>
+                    </tr>
+                </thead>
+                <tbody>';
 
-    // End of the table
-    echo '</tbody>
-        </table>';
+        // Display cart items
+        while ($row = mysqli_fetch_assoc($result_query)) {
+            $total_price = $row['product_price'] * $row['quantity'];
+            echo '<tr>
+                    <td><img class="img-fluid" style="max-width: 100px;" src="./image/' . $row['image1'] . '"></td>
+                    <td>' . $row['brand_name'] . '</td>
+                    <td>' . $row['product_name'] . '</td>
+                    <td>
+                        <input type="number" class="quantity-input" id="qty_' . $row['product_id'] . '" style="width: 50px; text-align: center;" value="' . $row['quantity'] . '" min="1" data-price="' . $row['product_price'] . '" onchange="updatePrice(this, ' . $row['product_id'] . ')">
+                    </td>
+                    <td>RS. ' . $row['product_price'] . '</td>
+                    <td id="total_' . $row['product_id'] . '">RS. ' . $total_price . '</td>
+                    <td><button class="btn btn-danger remove-item" data-productid="' . $row['product_id'] . '"><i class="fas fa-trash-alt"></i></button></td>
+                </tr>';
+        }
 
-    // JavaScript for handling item removal
-    echo '<script>
-            document.addEventListener("DOMContentLoaded", function() {
-                const removeButtons = document.querySelectorAll(".remove-item");
-                removeButtons.forEach(button => {
-                    button.addEventListener("click", function() {
-                        const productId = this.getAttribute("data-productid");
-                        removeCartItem(productId);
+        // End of the table
+        echo '</tbody>
+            </table>';
+
+        // JavaScript for handling item removal
+        echo '<script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    const removeButtons = document.querySelectorAll(".remove-item");
+                    removeButtons.forEach(button => {
+                        button.addEventListener("click", function() {
+                            const productId = this.getAttribute("data-productid");
+                            removeCartItem(productId);
+                            
+                        });
                     });
-                });
 
-                function removeCartItem(productId) {
-                }
-            });
-        </script>';
+                    function removeCartItem(productId) {
+                        // Send an AJAX request to remove the item from the cart
+                        const xhr = new XMLHttpRequest();
+                        xhr.open("POST", "delete.php", true);
+                        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState === XMLHttpRequest.DONE) {
+                                if (xhr.status === 200) {
+                                    // Handle successful deletion
+                                    const rowToRemove = document.getElementById("total_" + productId).parentNode;
+                                    rowToRemove.remove();
+                                    alert("Item removed from cart successfully!");
+                                } else {
+                                    // Handle deletion error
+                                    alert("Error removing item from cart!");
+                                }
+                            }
+                        };
+                        xhr.send("product_id=" + productId);
+                    }
+                });
+            </script>';
+    } else {
+        echo '<div class="alert alert-warning" role="alert">Cart is empty.</div>';
+    }
 }
 ?>
+
 
 <!-- function to order summary -->
 

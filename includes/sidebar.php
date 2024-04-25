@@ -1,3 +1,4 @@
+
 <?php
 include('includes/sidebar');
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
@@ -15,8 +16,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SESSION['user_id'])) {
     $address_type = $_POST['address-type'];
 
     // SQL query to insert data into the table
-    $sql = "INSERT INTO customer_add_info (name, mobile, pincode, locality, flatno, landmark, city, state, address_type) 
-            VALUES ('$name', '$mobile', '$pincode', '$locality', '$flatno', '$landmark', '$city', '$state', '$address_type')";
+    $sql = "INSERT INTO customer_add_info (name, mobile, pincode, locality, flatno, landmark, city, state, address_type,user_id) 
+            VALUES ('$name', '$mobile', '$pincode', '$locality', '$flatno', '$landmark', '$city', '$state', '$address_type','$user_id')";
 
     // Execute the query
     if (mysqli_query($conn, $sql)) {

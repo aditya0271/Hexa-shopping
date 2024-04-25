@@ -1,6 +1,45 @@
 <?php
 include ('includes/config.php');
 include ('includes/header1.php');
+// Include the database configuration file
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Check if the payment method is selected
+    if (isset($_POST['payment_method'])) {
+        $payment_method = $_POST['payment_method'];
+
+        // Define variables for card details (if applicable)
+        $card_number = '';
+        $expiry_date = '';
+        $cvv = '';
+
+        // Check if the payment method is 'card' and retrieve card details
+        if ($payment_method === 'card') {
+            if (isset($_POST['card_number']) && isset($_POST['expiry_date']) && isset($_POST['cvv'])) {
+                $card_number = $_POST['card_number'];
+                $expiry_date = $_POST['expiry_date'];
+                $cvv = $_POST['cvv'];
+
+                // You should perform validation and sanitization of these values before inserting into the database
+            }
+        }
+
+        // Insert payment details into the database
+        $sql = "INSERT INTO payments (payment_method, card_number, expiry_date, cvv) 
+                VALUES ('$payment_method', '$card_number', '$expiry_date', '$cvv')";
+
+        if (mysqli_query($conn, $sql)) {
+            echo "Payment details inserted successfully.";
+            // Redirect or perform further actions as needed
+        } else {
+            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+        }
+    } else {
+        echo "Payment method not selected.";
+    }
+} else {
+    echo "Invalid request method.";
+}
 ?>
 
 
@@ -16,13 +55,13 @@ include ('includes/header1.php');
 </head>
 
 <body>
-    <div class="">
+    <div>
         <div class="page-heading" id="top"></div>
-        <h1 class="mt-4 mb-4 align-item-center">Payment Details</h1>
+        <h1 class="row justify-content-center mb-4z">Payment Details</h1>
 
         <!-- Display Order Summary -->
 
-        <div class="row justify-content-between mb-4 d-flex">
+        <div class="row justify-content-center mb-4">
             <!-- Advertisements -->
             <div class="col-md-5 mx-4">
                 <div class="alert alert-primary" role="alert">
@@ -41,8 +80,8 @@ include ('includes/header1.php');
                 </div>
             </div>
         </div>
-        <div class="row d-flex">
-    <div class="col-md-4 mx-5 mt-4">
+        <div class="row justify-content-center align-items-center">
+    <div class="col-md-4">
         <!-- Payment Form -->
         <form method="POST" action="process_payment.php">
             <div class="form-group">
@@ -57,20 +96,6 @@ include ('includes/header1.php');
                 </div>
             </div>
             <!-- Credit/Debit Card Details -->
-            <div id="card_details">
-                <div class="form-group">
-                    <label for="card_number">Card Number:</label>
-                    <input type="text" class="form-control" id="card_number" name="card_number" required>
-                </div>
-                <div class="form-group">
-                    <label for="expiry_date">Expiry Date:</label>
-                    <input type="text" class="form-control" id="expiry_date" name="expiry_date" placeholder="MM/YY" required>
-                </div>
-                <div class="form-group">
-                    <label for="cvv">CVV:</label>
-                    <input type="text" class="form-control" id="cvv" name="cvv" maxlength="3" required>
-                </div>
-            </div>
             <!-- COD Details -->
             <div id="cod_details" style="display: none;">
                 <p>Cash on Delivery selected. No further payment details required.</p>

@@ -42,10 +42,8 @@ checkLogin();
                 $user_id = $_SESSION['user_id'];
             
                 // Query to fetch user's address using the foreign key relationship
-                $query = "SELECT c.name, c.mobile, c.pincode, c.locality, c.flatno, c.landmark, c.city, c.state
-                FROM customer_add_info c
-                JOIN customer u ON c.user_id = u.id
-                WHERE u.id = $user_id;
+                $query = "SELECT * FROM customer_add_info
+                WHERE user_id= $user_id;
                 ";
             
                 $result = mysqli_query($conn, $query);
