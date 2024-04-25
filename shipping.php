@@ -2,6 +2,8 @@
 <?php
 include ('includes/config.php');
 include ('includes/header1.php');
+
+// Check if the user is logged in, otherwise redirect to the login page
 checkLogin();
 
 ?>
@@ -35,19 +37,15 @@ checkLogin();
         <div class="container">
             <h2><i class="bi bi-geo-alt-fill"></i> Delivery Address</h2>
             <p>We will deliver your order to this address</p>
-            
-            
+
             <?php
             if (isset($_SESSION['user_id'])) {
                 $user_id = $_SESSION['user_id'];
-            
+
                 // Query to fetch user's address using the foreign key relationship
-                $query = "SELECT * FROM customer_add_info
-                WHERE user_id= $user_id;
-                ";
-            
+                $query = "SELECT * FROM customer_add_info WHERE user_id= $user_id";
                 $result = mysqli_query($conn, $query);
-            
+
                 if ($result) {
                     if (mysqli_num_rows($result) > 0) {
                         $address = mysqli_fetch_assoc($result);
@@ -67,13 +65,15 @@ checkLogin();
                     echo "Error fetching address information: " . mysqli_error($conn);
                 }
             } else {
-                echo "User is not logged in.";
+                // Redirect to the login page if the user is not logged in
+                header("Location: login.php");
+                exit; // Stop further execution
             }
-        
+
             ?>
 
-<br>
-<br>
+            <br>
+            <br>
 
             <button class="btn btn-dark" onclick="toggleSidebar()">Add Address <i class="bi bi-plus"></i></button>
 

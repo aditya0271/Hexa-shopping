@@ -42,11 +42,8 @@
                 <div class="container-fluid">
                     <div class="d-flex justify-content-between">
                         <div class="top-info ps-2">
-                            <small><i class="fas fa-map-marker-alt me-2 text-secondary"></i><a href="#"
-                                    class="text-white">123
-                                    Street, New York</a></small>
-                            <small><i class="fas fa-envelope me-2 text-secondary"></i><a href="#"
-                                    class="text-white">hexashop.com</a></small>
+                            <small></i><a href="login.php" class="text-white">Sign In/Join Us</a></small>
+
                         </div>
                         <div class="top-link pe-2">
                             <a href="#" class="text-white"><small>Privacy Policy</small>/</a>

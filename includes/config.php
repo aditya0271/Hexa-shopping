@@ -154,13 +154,7 @@ function cart_items() {
         echo '<table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">Image</th>
-                        <th scope="col">Brand</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Total Price</th>
-                        <th scope="col">Remove</th>
+                     
                     </tr>
                 </thead>
                 <tbody>';

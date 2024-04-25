@@ -26,9 +26,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Assuming you have a table named 'customer' with columns: id, username, email, password
         $query = "INSERT INTO customer(username, email, password) VALUES ('$username', '$email', '$hashed_password')";
         $result = mysqli_query($conn, $query);
-
         if ($result) {
-            echo "<script>alert('$success');</script>";
+            // Redirect to login page after successful registration
+            header("Location: login.php");
+            exit;
         } else {
             $error = "Registration failed. Please try again.";
         }

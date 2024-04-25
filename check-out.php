@@ -1,7 +1,6 @@
 <?php
-include ('includes/config.php');
-include ('includes/header1.php');
-// Include the database configuration file
+// Include the database configuration file and any other necessary includes
+include('includes/config.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if the payment method is selected
@@ -13,34 +12,59 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $expiry_date = '';
         $cvv = '';
 
-        // Check if the payment method is 'card' and retrieve card details
-        if ($payment_method === 'card') {
-            if (isset($_POST['card_number']) && isset($_POST['expiry_date']) && isset($_POST['cvv'])) {
-                $card_number = $_POST['card_number'];
-                $expiry_date = $_POST['expiry_date'];
-                $cvv = $_POST['cvv'];
+        // Assuming the user ID is stored in the session when the user is logged in
+        if (isset($_SESSION['user_id'])) {
+            $user_id = $_SESSION['user_id'];
 
-                // You should perform validation and sanitization of these values before inserting into the database
+            // Check if the payment method is 'card' and retrieve card details
+            if ($payment_method === 'card') {
+                if (isset($_POST['card_number']) && isset($_POST['expiry_date']) && isset($_POST['cvv'])) {
+                    $card_number = $_POST['card_number'];
+                    $expiry_date = $_POST['expiry_date'];
+                    $cvv = $_POST['cvv'];
+
+                    // You should perform validation and sanitization of these values before inserting into the database
+
+                    // Insert payment details into the database
+                    $sql = "INSERT INTO payments (payment_method, card_number, expiry_date, cvv, user_id) 
+                            VALUES ('$payment_method', '$card_number', '$expiry_date', '$cvv', $user_id)";
+
+                    if (mysqli_query($conn, $sql)) {
+                        // Payment details inserted successfully
+                        echo "<script>alert('Your order has been placed.');</script>";
+                        echo "<script>window.location.href = 'index.php';</script>";
+                        exit; // Stop further execution
+                    } else {
+                        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+                    }
+                } else {
+                    echo "Card details not provided.";
+                }
+            } else {
+                // For 'cash on delivery' method or other methods
+                // Insert payment details into the database without card details
+                $sql = "INSERT INTO payments (payment_method, user_id) 
+                        VALUES ('$payment_method', $user_id)";
+
+                if (mysqli_query($conn, $sql)) {
+                    // Payment details inserted successfully
+                    echo "<script>alert('Your order has been placed.');</script>";
+                    echo "<script>window.location.href = 'index.php';</script>";
+                    exit; // Stop further execution
+                } else {
+                    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+                }
             }
-        }
-
-        // Insert payment details into the database
-        $sql = "INSERT INTO payments (payment_method, card_number, expiry_date, cvv) 
-                VALUES ('$payment_method', '$card_number', '$expiry_date', '$cvv')";
-
-        if (mysqli_query($conn, $sql)) {
-            echo "Payment details inserted successfully.";
-            // Redirect or perform further actions as needed
         } else {
-            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+            echo "User ID not set in session. Please log in first.";
         }
     } else {
         echo "Payment method not selected.";
     }
-} else {
-    echo "Invalid request method.";
 }
 ?>
+
+
 
 
 <!DOCTYPE html>
@@ -83,16 +107,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="row justify-content-center align-items-center">
     <div class="col-md-4">
         <!-- Payment Form -->
-        <form method="POST" action="process_payment.php">
+        <form method="POST">
             <div class="form-group">
                 <h4>Payment Method:</h4>
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="payment_method" id="cod" value="cod" required>
                     <label class="form-check-label" for="cod">Cash on Delivery</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="payment_method" id="card" value="card" required>
-                    <label class="form-check-label" for="card">Credit/Debit Card</label>
                 </div>
             </div>
             <!-- Credit/Debit Card Details -->
