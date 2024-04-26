@@ -84,7 +84,7 @@
                         <li><a href="javascript:;"><i class="la la-users"></i>Old Customers</a></li>
                     </ul> -->
             </li>
-            <li><a href="javascript:;" class="waves-effect waves-primary"><i
+            <li><a href="order.php" class="waves-effect waves-primary"><i
                         class="la la-cart-arrow-down"></i>Orders</a></li>
             <li><a href="javascript:;" class="waves-effect waves-primary"><i class="la la-wechat"></i>Messages</a></li>
             <li><a href="javascript:;" class="waves-effect waves-primary"><i class="la la-bank"></i>Payments</a>
@@ -314,7 +314,7 @@
                         <button class="btn admin-btn btn-secondary m-1"><a href="index.php?insert_brands"
                                 class="text-light text-decoration-none">Insert Brands</a></button>
                         <button class="btn admin-btn btn-secondary m-1"><a href="#" class="text-light text-decoration-none">All Orders</a></button>
-                        <button class="btn admin-btn btn-secondary m-1"><a href="#" class="text-light text-decoration-none">All Payments</a></button>
+                        <button class="btn admin-btn btn-secondary m-1"><a href="order.php" class="text-light text-decoration-none">All Payments</a></button>
                         <button class="btn admin-btn btn-secondary m-1"><a href="#" class="text-light text-decoration-none">List Users</a></button>
                     </div>
                     <form action="login.php" method="post">
