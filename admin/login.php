@@ -1,4 +1,4 @@
-<!-- config file -->
+
 <?php
 include('../includes/config.php');
 include('../controller/login.php');

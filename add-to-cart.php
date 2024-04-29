@@ -2,10 +2,6 @@
 <?php
 include ('includes/config.php');
 include ('includes/header1.php');
-
-
-
-
 ?>
 <!-- Your CSS styles -->
 
@@ -27,16 +23,16 @@ include ('includes/header1.php');
             </div>
 
             <div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-md-6 text-center">
-            <a href="index.php" class="btn btn-dark mt-3">Continue Shopping</a>
-        </div>
-        <div class="col-md-6 text-center">
-            <?php calculate_order_summary(); ?>
-            <a href="shipping.php" class="btn btn-dark mt-3">Proceed to Checkout</a>
-        </div>
-    </div>
-</div>
+                <div class="row justify-content-center">
+                    <div class="col-md-6 text-center">
+                        <a href="index.php" class="btn btn-dark mt-3">Continue Shopping</a>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <?php calculate_order_summary(); ?>
+                        <a href="shipping.php" class="btn btn-dark mt-3">Proceed to Checkout</a>
+                    </div>
+                </div>
+            </div>
 
 
 

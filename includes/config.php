@@ -39,12 +39,13 @@ function checkLogin() {
 ?>
 
 <?php
-//  Function for storing items in cart
+// Function for storing items in cart
 function cart()
 {
     global $conn; // Assuming $conn is your database connection
+    $session_id = get_session_id();
+
     if (isset($_GET['add_to_cart'])) {
-        $session_id = get_session_id();
         $get_product_id = $_GET['add_to_cart'];
 
         // Sanitize input to prevent SQL injection
@@ -65,23 +66,28 @@ function cart()
 
         if ($num_of_rows > 0) {
             echo "<script>alert('This item is already in your cart')</script>";
-            // echo "<script>window.open('index.php', '_self')</script>";
+            echo "<script>window.open('index.php', '_self')</script>";
         } else {
-            $user = $_SESSION['user_id'];
-            // Insert the item into the cart_details table
-            $insert_query = "INSERT INTO `cart_details` (session_id, product_id, quantity, user_id) VALUES ('$session_id', $get_product_id, $quantity, $user)";
+            // Check if the user is logged in
+            if (isset($_SESSION['user_id'])) {
+                $user = $_SESSION['user_id'];
+                // Insert the item into the cart_details table with user ID
+                $insert_query = "INSERT INTO `cart_details` (session_id, product_id, quantity, user_id) VALUES ('$session_id', $get_product_id, $quantity, $user)";
+            } else {
+                // Insert the item into the cart_details table without user ID
+                $insert_query = "INSERT INTO `cart_details` (session_id, product_id, quantity) VALUES ('$session_id', $get_product_id, $quantity)";
+            }
 
             $result_insert = mysqli_query($conn, $insert_query);
             if ($result_insert) {
                 echo "<script>alert('Item added to cart successfully')</script>";
-                // echo "<script>window.open('index.php', '_self')</script>";
+                echo "<script>window.open('index.php', '_self')</script>";
             }
         }
     }
 }
 cart();
 ?>
-
 
 <!-- function to get no.of items in cart -->
 <?php

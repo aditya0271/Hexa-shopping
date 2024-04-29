@@ -29,6 +29,7 @@ include ('includes/header1.php');
 
     <!-- ***** Product Area Starts ***** -->
     <?php
+  
     // Check if product ID is provided in the URL
     if (isset($_GET['id']) && !empty($_GET['id'])) {
         $product_id = mysqli_real_escape_string($conn, $_GET['id']);
@@ -157,6 +158,7 @@ include ('includes/header1.php');
 
     <!-- Footer Area -->
     <?php
+
     include ('includes/footer.php');
     ?>
     <!-- Footer Area ends -->

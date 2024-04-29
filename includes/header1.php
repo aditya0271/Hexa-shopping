@@ -43,7 +43,18 @@
                     <div class="d-flex justify-content-between">
                         <div class="top-info ps-2">
                             <small></i><a href="login.php" class="text-white">Sign In/Join Us</a></small>
+                        </div>
 
+                        <div class="currency">
+                            <a class="currency__change" href="customer/my_account.php?my_orders">
+                                <?php
+                                if (!isset($_SESSION['username'])) {
+                                    echo "Welcome :Guest";
+                                } else {
+                                    echo "Welcome : " . $_SESSION['username'] . "";
+                                }
+                                ?>
+                            </a>
                         </div>
                         <div class="top-link pe-2">
                             <a href="#" class="text-white"><small>Privacy Policy</small>/</a>
@@ -112,17 +123,37 @@
                             </a>
 
                             <ul class="dropdown-menu mx-2 my-" aria-labelledby="dropdownMenuLink">
+                        
                                 <!-- Display username and email -->
-                                <li><a class="dropdown-item" href="#">Hello <?php echo $_SESSION['username']; ?></a>
-                                </li>
-                                <li><a class="dropdown-item" href="#"><?php echo $_SESSION['email']; ?></a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+
+                                <ul class="login">
+
+                                    <li class="login__item">
+                                        <?php
+                                        if (!isset($_SESSION['username'])) {
+                                            echo '<a href="customer_register.php" class="login__link">Register</a>';
+                                        } else {
+                                            echo '<a href="customer/my_account.php?my_orders" class="login__link">My Account</a>';
+                                        }
+                                        ?>
+                                    </li>
+
+
+                                    <li class="login__item">
+                                        <?php
+                                        if (!isset($_SESSION['username'])) {
+                                            echo '<a href="checkout.php" class="login__link">Sign In</a>';
+                                        } else {
+                                            echo '<a href="./logout.php" class="login__link">Logout</a>';
+                                        }
+                                        ?>
+
+                                    </li>
+                                </ul>
                             </ul>
                         </div>
                     </div>
+                </div>
             </nav>
         </div>
     </div>

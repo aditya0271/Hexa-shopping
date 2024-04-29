@@ -7,53 +7,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['payment_method'])) {
         $payment_method = $_POST['payment_method'];
 
-        // Define variables for card details (if applicable)
-        $card_number = '';
-        $expiry_date = '';
-        $cvv = '';
-
         // Assuming the user ID is stored in the session when the user is logged in
         if (isset($_SESSION['user_id'])) {
             $user_id = $_SESSION['user_id'];
 
-            // Check if the payment method is 'card' and retrieve card details
-            if ($payment_method === 'card') {
-                if (isset($_POST['card_number']) && isset($_POST['expiry_date']) && isset($_POST['cvv'])) {
-                    $card_number = $_POST['card_number'];
-                    $expiry_date = $_POST['expiry_date'];
-                    $cvv = $_POST['cvv'];
+            // Insert payment details into the database
+            $sql_payment = "INSERT INTO payments (payment_method, user_id) 
+                            VALUES ('$payment_method', $user_id)";
 
-                    // You should perform validation and sanitization of these values before inserting into the database
+            if (mysqli_query($conn, $sql_payment)) {
+                // Payment details inserted successfully
+                // Retrieve product IDs from the hidden input field
+                $product_ids = $_POST['product_ids']; // Assuming 'product_ids' is the name of the hidden input field
 
-                    // Insert payment details into the database
-                    $sql = "INSERT INTO payments (payment_method, card_number, expiry_date, cvv, user_id) 
-                            VALUES ('$payment_method', '$card_number', '$expiry_date', '$cvv', $user_id)";
+                // Explode the product IDs into an array
+                $product_ids_array = explode(',', $product_ids);
 
-                    if (mysqli_query($conn, $sql)) {
-                        // Payment details inserted successfully
-                        echo "<script>alert('Your order has been placed.');</script>";
-                        echo "<script>window.location.href = 'index.php';</script>";
-                        exit; // Stop further execution
-                    } else {
-                        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-                    }
-                } else {
-                    echo "Card details not provided.";
+                // Insert order details into the order_details table
+                foreach ($product_ids_array as $product_id) {
+                    // Get product details for calculating subtotal price
+                    $product_query = "SELECT product_price FROM product_details WHERE product_id = $product_id";
+                    $product_result = mysqli_query($conn, $product_query);
+                    $product_row = mysqli_fetch_assoc($product_result);
+                    $product_price = $product_row['product_price'];
+
+                    // Calculate subtotal price
+                    $subtotal_price = 1 * $product_price; // Assuming quantity is fixed at 1
+
+                    $sql_order = "INSERT INTO order_details (user_id, product_id, quantity, subtotal_price) 
+                                    VALUES ($user_id, $product_id, 1, $subtotal_price)";
+                    mysqli_query($conn, $sql_order);
                 }
+
+                // Redirect to success page or display success message
+                echo "<script>alert('Your order has been placed.');</script>";
+                echo "<script>window.location.href = 'index.php';</script>";
+                exit; // Stop further execution
             } else {
-                // For 'cash on delivery' method or other methods
-                // Insert payment details into the database without card details
-                $sql = "INSERT INTO payments (payment_method, user_id) 
-                        VALUES ('$payment_method', $user_id)";
-
-                if (mysqli_query($conn, $sql)) {
-                    // Payment details inserted successfully
-                    echo "<script>alert('Your order has been placed.');</script>";
-                    echo "<script>window.location.href = 'index.php';</script>";
-                    exit; // Stop further execution
-                } else {
-                    echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-                }
+                echo "Error: " . $sql_payment . "<br>" . mysqli_error($conn);
             }
         } else {
             echo "User ID not set in session. Please log in first.";
@@ -63,8 +54,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
-
-
 
 
 <!DOCTYPE html>
@@ -84,6 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h1 class="row justify-content-center mb-4z">Payment Details</h1>
 
         <!-- Display Order Summary -->
+        <!-- Assume calculate_order_summary() function generates order summary -->
 
         <div class="row justify-content-center mb-4">
             <!-- Advertisements -->
@@ -105,53 +95,66 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
         <div class="row justify-content-center align-items-center">
-    <div class="col-md-4">
-        <!-- Payment Form -->
-        <form method="POST">
-            <div class="form-group">
-                <h4>Payment Method:</h4>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="payment_method" id="cod" value="cod" required>
-                    <label class="form-check-label" for="cod">Cash on Delivery</label>
-                </div>
+            <div class="col-md-4">
+                <!-- Payment Form -->
+                <form method="POST">
+                    <div class="form-group">
+                        <h4>Payment Method:</h4>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="payment_method" id="cod" value="cod" required>
+                            <label class="form-check-label" for="cod">Cash on Delivery</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="payment_method" id="card" value="card" required>
+                            <label class="form-check-label" for="card">Card Payment</label>
+                        </div>
+                    </div>
+                    <!-- Credit/Debit Card Details -->
+                    <div id="card_details" style="display: none;">
+                        <div class="form-group">
+                            <label for="card_number">Card Number:</label>
+                            <input type="text" class="form-control" id="card_number" name="card_number">
+                        </div>
+                        <div class="form-group">
+                            <label for="expiry_date">Expiry Date:</label>
+                            <input type="text" class="form-control" id="expiry_date" name="expiry_date">
+                        </div>
+                        <div class="form-group">
+                            <label for="cvv">CVV:</label>
+                            <input type="text" class="form-control" id="cvv" name="cvv">
+                        </div>
+                    </div>
+                    <input type="hidden" name="product_ids" value="1,2,3"> <!-- Example product IDs -->
+                    <button type="submit" class="btn btn-dark">Pay Now</button>
+                </form>
             </div>
-            <!-- Credit/Debit Card Details -->
-            <!-- COD Details -->
-            <div id="cod_details" style="display: none;">
-                <p>Cash on Delivery selected. No further payment details required.</p>
+            <div class="col-md-4 p-4 mx-4">
+                <!-- Order Summary -->
+                <?php calculate_order_summary(); ?> <!-- Assuming this function generates order summary -->
             </div>
-            <button type="submit" class="btn btn-dark">Pay Now</button>
-        </form>
+        </div>
     </div>
-    <div class="col-md-4 p-4 mx-4">
-        <?php calculate_order_summary(); ?>
-        <!-- <a href="check-out.php" class="btn btn-dark mx-5 m-2">Proceed to Payment</a> -->
-    </div>
-</div>
-</body>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const codRadio = document.getElementById('cod');
-        const cardRadio = document.getElementById('card');
-        const cardDetails = document.getElementById('card_details');
-        const codDetails = document.getElementById('cod_details');
+    <!-- JavaScript for handling payment method selection -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const codRadio = document.getElementById('cod');
+            const cardRadio = document.getElementById('card');
+            const cardDetails = document.getElementById('card_details');
 
-        // Function to handle radio button change
-        function handlePaymentMethodChange() {
-            if (cardRadio.checked) {
-                cardDetails.style.display = 'block';
-                codDetails.style.display = 'none';
-            } else {
-                cardDetails.style.display = 'none';
-                codDetails.style.display = 'block';
+            // Function to handle radio button change
+            function handlePaymentMethodChange() {
+                if (cardRadio.checked) {
+                    cardDetails.style.display = 'block';
+                } else {
+                    cardDetails.style.display = 'none';
+                }
             }
-        }
 
-        // Add event listeners to radio buttons
-        codRadio.addEventListener('change', handlePaymentMethodChange);
-        cardRadio.addEventListener('change', handlePaymentMethodChange);
-    });
-</script>
-
+            // Add event listeners to radio buttons
+            codRadio.addEventListener('change', handlePaymentMethodChange);
+            cardRadio.addEventListener('change', handlePaymentMethodChange);
+        });
+    </script>
+</body>
 
 </html>

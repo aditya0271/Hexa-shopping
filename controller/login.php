@@ -5,24 +5,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Retrieve user input
     $username = $_POST["username"];
     $password = $_POST["password"];
-    // You should perform proper validation and sanitation here
 
-    // Query to check if the user exists
-    $query = "SELECT * FROM admin_user WHERE username = '$username' AND password = '$password'";
-    $result = $conn->query($query);
+    // Include database connection
+    include("includes/config.php");
 
-    // Check if the query was successful and if the user exists
-    if ($result && $result->num_rows > 0) {
-        // Authentication successful
+    // Query to check admin credentials
+    $get_admin = "SELECT * FROM admin_user WHERE username = '$username' AND password = '$password'";
+    $run_admin = mysqli_query($conn, $get_admin);
+    $count = mysqli_num_rows($run_admin);
+
+    if ($count == 1) {
         $_SESSION['username'] = $username;
-        header("Location:index.php"); // Redirect to a welcome page or dashboard
-    } else {
-        // Authentication failed
-        // echo '<script>alert("YOU HAVE BEEN LOGOUT FROM");</script>';
-    
-    }
-}
+        echo "<script>alert('You are Logged in into admin panel')</script>";
+        echo "<script>window.open('index.php?dashboard','_self')</script>";
 
-// Close the database connection
-$conn->close();
+        exit; // Make sure to exit after successful login
+    } else {
+        echo "<script>alert('Email or Password is Wrong')</script>";
+    }
+
+    // Close the database connection
+    mysqli_close($con);
+}
 ?>
