@@ -45,22 +45,23 @@
                             <small></i><a href="login.php" class="text-white">Sign In/Join Us</a></small>
                         </div>
 
-                        <div class="currency">
-                            <a class="currency__change" href="customer/my_account.php?my_orders">
-                                <?php
-                                if (!isset($_SESSION['username'])) {
-                                    echo "Welcome :Guest";
-                                } else {
-                                    echo "Welcome : " . $_SESSION['username'] . "";
-                                }
-                                ?>
-                            </a>
-                        </div>
-                        <div class="top-link pe-2">
+                        <div class="currency text-white">
+    <a class="currency__change text-white" href="customer/my_account.php?my_orders">
+        <?php
+        if (!isset($_SESSION['username'])) {
+            echo "Welcome: Guest";
+        } else {
+            echo "Welcome: " . $_SESSION['username'];
+        }
+        ?>
+    </a>
+</div>
+
+                        <!-- <div class="top-link pe-2">
                             <a href="#" class="text-white"><small>Privacy Policy</small>/</a>
                             <a href="#" class="text-white"><small>Terms of Use</small>/</a>
                             <a href="#" class="text-white"><small>Sales and Refunds</small></a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -128,18 +129,18 @@
 
                                 <ul class="login">
 
-                                    <li class="login__item">
+                                    <li class="login__item text-center">
                                         <?php
                                         if (!isset($_SESSION['username'])) {
                                             echo '<a href="customer_register.php" class="login__link">Register</a>';
                                         } else {
-                                            echo '<a href="customer/my_account.php?my_orders" class="login__link">My Account</a>';
+                                            echo '<a href="my-account.php?my_orders" class="login__link">My Account</a>';
                                         }
                                         ?>
                                     </li>
 
 
-                                    <li class="login__item">
+                                    <li class="login__item text-center">
                                         <?php
                                         if (!isset($_SESSION['username'])) {
                                             echo '<a href="checkout.php" class="login__link">Sign In</a>';
