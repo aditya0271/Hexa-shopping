@@ -585,3 +585,106 @@
 <script src="assets/scripts/custome.js"></script>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<?php
+// Include the database configuration file
+include('../includes/config.php');
+
+// Start the session
+session_start();
+
+// Check if the user is logged in as an admin (you can modify this based on your admin authentication logic)
+
+// Check if product_id is set and it's a valid number
+if (isset($_GET['product_id']) && is_numeric($_GET['product_id'])) {
+    $product_id = $_GET['product_id'];
+
+    // Prepare and execute the delete query
+    $sql = "DELETE FROM product_details WHERE id = $product_id";
+
+    if (mysqli_query($conn, $sql)) {
+        // Redirect to the same page after deletion
+        header("Location: ".$_SERVER['PHP_SELF']);
+        exit;
+    } else {
+        echo "Error deleting record: " . mysqli_error($conn);
+    }
+}
+
+// Fetch product details from the database
+$sql = "SELECT * FROM product_details";
+$result = mysqli_query($conn, $sql);
+
+// Check if query executed successfully
+if (!$result) {
+    echo "Error fetching product details: " . mysqli_error($conn);
+    exit;
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2 class="my-4">Product List</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Product Name</th>
+                        <th>Brand</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    if (mysqli_num_rows($result) > 0) {
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo "<tr>";
+                            echo "<td>" . $row["id"] . "</td>";
+                            echo "<td>" . $row["product_name"] . "</td>";
+                            echo "<td>" . $row["brand_name"] . "</td>";
+                            echo "<td>" . $row["product_price"] . "</td>";
+                            
+                            echo "<td>
+                                <a href='" . $_SERVER['PHP_SELF'] . "?product_id=" . $row["id"] . "' class='btn btn-danger'>Delete</a>
+                                <a href='edit_product.php?product_id=" . $row["id"] . "' class='btn btn-primary'>Edit</a>
+                            </td>";
+                            echo "</tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='5'>No products found.</td></tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

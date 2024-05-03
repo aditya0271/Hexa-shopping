@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="login-form bg-white p-3 p-lg-5 rounded">
             <div class="row">
                 <div class="col-12 col-lg-6 d-none d-lg-flex pr-lg-2">
-                    <img src="admin/assets/image/login-mockup.svg" alt="">
+                    <img src="admin/assets/image/logo1.webp" alt="" width= 300>
                 </div>
                 <div class="col-12 col-lg-6 pl-lg-2">
                     <div class="pagetitle mb-4">

@@ -10,16 +10,16 @@ include ('includes/header1.php');
 
                 <!-- ***** Main Banner Area Start ***** -->
                 <div class="page-heading" id="top">
-                    <!-- <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="inner-content">
-                        <h2>Single Product Page</h2>
-                        <span>Awesome &amp; Creative HTML CSS layout by TemplateMo</span>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <!-- <div class="inner-content"> -->
+                                <!-- <h2>Single Product Page</h2> -->
+                                <!-- <span>Awesome &amp; Creative HTML CSS layout by TemplateMo</span> -->
+                                <!-- </div> -->
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div> -->
                 </div>
             </div>
         </div>
@@ -29,7 +29,7 @@ include ('includes/header1.php');
 
     <!-- ***** Product Area Starts ***** -->
     <?php
-  
+
     // Check if product ID is provided in the URL
     if (isset($_GET['id']) && !empty($_GET['id'])) {
         $product_id = mysqli_real_escape_string($conn, $_GET['id']);
@@ -59,7 +59,7 @@ include ('includes/header1.php');
                             </div>
                             <div class="w-80" style="display:flex; flex: 80%">
                                 <div class="">
-                                    <div class="" id="largeImage">
+                                    <div class="w-100" id="largeImage">
 
                                     </div>
                                 </div>
@@ -73,76 +73,88 @@ include ('includes/header1.php');
                             <?php echo $product['brand_name']; ?>
                             <br>
                             <span>
-                                <h4>
-                                    <?php echo $product['product_name']; ?>
-                                    <br><br>
-                                </h4>
+                                <h5>
+                                    <span style="color: #808080;"> <?php echo $product['product_name']; ?></span>
+                                    <br>
+                                </h5>
                             </span>
-                            </h6>
-
-
-
-                            <h3>RS.
-                                <?php echo $product['product_price']; ?>
-                                <p>inclusive of all taxes</p>
-                            </h3>
-                            <br>
-                            <label for="size-selector" class="mt-8 d-inline">
-                                <h6>Select Size:</h6><br>
-                            </label>
-                            <div class="btn-group size-selector mt-6 " role="group" aria-label="Size Selector">
-                                <button type="button" class="btn btn-outline-dark rounded-circle mr-2">38</button>
-                                <button type="button" class="btn btn-outline-dark rounded-circle mr-2">40</button>
-                                <button type="button" class="btn btn-outline-dark rounded-circle mr-2">42</button>
-                                <button type="button" class="btn btn-outline-dark rounded-circle">46</button>
-                            </div>
-                            <br>
-
-                            <p>
-                                <?php echo $product['product_description']; ?>
-                                <br>
-                                <br>
-                            </p>
-
-                            <form action="index.php?add_to_cart=<?php echo $product_id; ?>" method="POST"
-                                class="mb-3 mt-2">
+                        </h2>
+                        <br>
+                        <h4>RS.
+                            <?php echo $product['product_price']; ?>
+                            <p style="color: #008000;">inclusive of all taxes</p>
+                        </h4> 
+                        <br>
+                        <label for="size-selector" class="mt-8 d-inline">
+                            <h6>Select Size:</h6><br>
+                        </label>
+                        <div class="btn-group size-selector mt-6 " role="group" aria-label="Size Selector">
+                            <button type="button" class="btn btn-outline-dark rounded-circle mr-2">38</button>
+                            <button type="button" class="btn btn-outline-dark rounded-circle mr-2">40</button>
+                            <button type="button" class="btn btn-outline-dark rounded-circle mr-2">42</button>
+                            <button type="button" class="btn btn-outline-dark rounded-circle">46</button>
+                        </div>
+                        <br>
+                        <br>
+                        <form action="index.php?add_to_cart=<?php echo $product_id; ?>" method="POST" class="mb-3 mt-2">
                             <div class="row mt-2">
                                 <div class="col-md-2">
                                     <input type="number" name="quantity" value="1" min="1" class="form-control form-control-sm">
                                 </div>
                             </div>
-                            <div class="row mt-2">
-                                <div class="col-md-12 mt-2">
-                                    <button type="submit" name="add_to_cart" class="btn btn-dark"><i class="bi bi-cart-fill"></i>Add to
-                                        Cart</button>
+
+                            <div class="col-md-8"> <!-- Added a column to hold the buttons -->
+                                <div class="row mt-2 ">
+                                    <div class="col-md-6"> <!-- Each button takes half of the space -->
+                                        <button type="submit" name="add_to_cart" class="btn btn-dark btn-block"><i
+                                                class="bi bi-cart-fill"></i>Add to Cart</button>
+                                    </div>
+
+                                    <div class="col-md-6"> <!-- Adjust the columns as needed -->
+                                        <form action="index.php?add_to_wish=<?php echo $product_id; ?>" method="POST"
+                                            class="display-flex">
+                                            <input type="hidden" name="add_to_wishlist" value="1">
+                                            <button type="submit" class="btn btn-dark btn-block"><i
+                                                    class="bi bi-cart-fill"></i>Wishlist</button>
+                                        </form>
+
+                                    </div>
                                 </div>
                             </div>
-                            </form>
-                            <form action="index.php?add_to_wish=<?php echo $product_id; ?>" method="POST"
-                                class="mt-3 display-flex">
-                                <input type="hidden" name="add_to_wishlist" value="1">
-                                <button type="submit" class="btn btn-dark"><i class="bi bi-cart-fill"></i>Wishlist</button>
-                            </form>
+                        </form>
 
-                            <h6 class="mt-4">
-                                <strong> <br>DELIVERY OPTIONS <i class="bi bi-truck"></i></strong>
-                            </h6>
 
-                            <ul>
-                                <li>
-                                    <p>Availability 100% Original Products</p>
-                                </li>
-                                <li>
-                                    <p>Pay on delivery might be available</p>
-                                </li>
-                                <li>
-                                    <p>Easy 14 days returns and exchanges</p>
-                                </li>
-                                <li>
-                                    <p>Try & Buy might be available</p>
-                                </li>
-                                </p>
-                            </ul>
+                        <br><br>
+                        <h5>Product Description: </h5><br>
+                        <p>
+                            <?php $desc = explode('|', $product['product_description']);
+                            for ($i = 0; $i <= count($desc); $i++) {
+                                echo $desc[$i] . '<br>';
+                            }
+                            ?>
+
+
+                        </p>
+
+                        <h6 class="mt-4">
+                            <strong> <br>DELIVERY OPTIONS <i class="bi bi-truck"></i></strong>
+                        </h6>
+
+                        <ul>
+                            <li>
+                                <p>Availability 100% Original Products</p>
+                            </li>
+                            <li>
+                                <p>Pay on delivery might be available</p>
+                            </li>
+                            <li>
+                                <p>Easy 14 days returns and exchanges</p>
+                            </li>
+                            <li>
+                                <p>Try & Buy might be available</p>
+                            </li>
+                            </p>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -170,17 +182,17 @@ include ('includes/header1.php');
         let selectedImage = image1;
         largeImage.innerHTML = `<img src=${selectedImage.currentSrc} class='d-block w-100' >`
 
-        image1.addEventListener("click", function(){
+        image1.addEventListener("click", function () {
             selectedImage = image1;
             largeImage.innerHTML = `<img src=${selectedImage.currentSrc} class='d-block w-100' >`;
         }, false)
-        
-        image2.addEventListener("click", function(){
+
+        image2.addEventListener("click", function () {
             selectedImage = image2;
             largeImage.innerHTML = `<img src=${selectedImage.currentSrc} class='d-block w-100' >`;
         }, false)
 
-        image3.addEventListener("click", function(){
+        image3.addEventListener("click", function () {
             selectedImage = image3;
             largeImage.innerHTML = `<img src=${selectedImage.currentSrc} class='d-block w-100' >`;
         }, false)

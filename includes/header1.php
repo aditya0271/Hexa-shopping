@@ -46,16 +46,16 @@
                         </div>
 
                         <div class="currency text-white">
-    <a class="currency__change text-white" href="customer/my_account.php?my_orders">
-        <?php
-        if (!isset($_SESSION['username'])) {
-            echo "Welcome: Guest";
-        } else {
-            echo "Welcome: " . $_SESSION['username'];
-        }
-        ?>
-    </a>
-</div>
+                            <a class="currency__change text-white" href="customer/my_account.php?my_orders">
+                                <?php
+                                if (!isset($_SESSION['username'])) {
+                                    echo "Welcome: Guest";
+                                } else {
+                                    echo "Welcome: " . $_SESSION['username'];
+                                }
+                                ?>
+                            </a>
+                        </div>
 
                         <!-- <div class="top-link pe-2">
                             <a href="#" class="text-white"><small>Privacy Policy</small>/</a>
@@ -69,7 +69,8 @@
 
 
         <div class="container-fluid px-0">
-            <nav class="navbar navbar-light bg-secondary navbar-expand-xl">
+            <nav class="navbar  navbar-expand-lg navbar-light bg-secondary  ">
+                
                 <a href="index.php" class="navbar-brand">
                     <h1 class="text-light display-6">HEXASHOP</h1>
                 </a>
@@ -124,7 +125,7 @@
                             </a>
 
                             <ul class="dropdown-menu mx-2 my-" aria-labelledby="dropdownMenuLink">
-                        
+
                                 <!-- Display username and email -->
 
                                 <ul class="login">

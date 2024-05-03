@@ -176,145 +176,12 @@ include ('includes/header1.php');
 
     <!-- ***** Men Area Starts ***** -->
     <section class="section" id="men">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="section-heading">
-                    <h2>Men's Latest</h2>
-                    <span>We Offer Shirts, Trousers And Other Products For Men.</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="men-item-carousel">
-                    <div class="owl-men-item owl-carousel">
-                        <?php
-                        // Fetch product data
-                        $sql = "SELECT * FROM product_details WHERE categories= 'm' ";
-                        $result = $conn->query($sql);
-                        if ($result->num_rows > 0) {
-                            // Output data of each row
-                            while ($row = $result->fetch_assoc()) {
-                                ?>
-                                <div class="item">
-                                    <div class="thumb">
-                                        <!-- Make the image clickable and redirect to single-product.php -->
-                                        <a href="single-product.php?id=<?= $row["product_id"] ?>">
-                                            <img src="./images/<?= $row["image1"] ?>" alt="<?= $row["product_name"] ?>">
-                                        </a>
-                                        <div class="hover-content">
-                                        <div class="mt-2 align-items-center">
-                                                    <a href="single-product.php?id=<?= $row["product_id"] ?>"
-                                                        class="btn btn-light btn-lg btn-block position-relative">
-
-                                                        <span class="ms-">QUICK VIEW</span>
-                                                    </a>
-                                                </div>
-                                        </div>
-                                    </div>
-                                    <div class="down-content">
-                                        <h5><?= $row["brand_name"] ?></h5>
-                                        <p><?= $row["product_name"] ?></p>
-                                        <span>RS. <?= $row["product_price"] ?></span>
-                                    </div>
-                                </div>
-                                <?php
-                            }
-                        } else {
-                            ?>
-                            <p>No products found.</p>
-                            <?php
-                        }
-                        ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-    <!-- ***** Men Area Ends ***** -->
-
-    <!-- ***** Women Area Starts ***** -->
-<!-- ***** Women Area Starts ***** -->
-<section class="section" id="women">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="section-heading">
-                    <h2>Women's Latest</h2>
-                    <span>Select a Category To View Our Collection Of Products For Women.</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="women-item-carousel">
-                    <div class="owl-women-item owl-carousel">
-                        <?php
-                        // Fetch product data
-                        $sql = "SELECT * FROM product_details WHERE categories='w'";
-                        $result = $conn->query($sql);
-
-                        if ($result === false) {
-                            // Error executing the SQL query
-                            echo "Error: " . $sql . "<br>" . $conn->error;
-                        } else {
-                            if ($result->num_rows > 0) {
-                                // Output data of each row
-                                while ($row = $result->fetch_assoc()) {
-                                    ?>
-                                    <div class="item">
-                                        <div class="thumb">
-                                            <!-- Make the image clickable and redirect to single-product.php -->
-                                            <a href="single-product.php?id=<?= $row["product_id"] ?>">
-                                                <img src="./images/<?= $row["image1"] ?>" alt="<?= $row["product_name"] ?>">
-                                            </a>
-                                            <div class="hover-content">
-                                                <div class="mt-2 align-items-center">
-                                                <a href="single-product.php?id=<?= $row["product_id"] ?>"
-                                                        class="btn btn-light btn-lg btn-block position-relative">
-
-                                                        <span class="ms-">QUICK VIEW</span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="down-content">
-                                            <h5><?= $row["brand_name"] ?></h5>
-                                            <p><?= $row["product_name"] ?></p>
-                                            <span>RS. <?= $row["product_price"] ?></span>
-                                        </div>
-                                    </div>
-                                    <?php
-                                }
-                            } else {
-                                // No products found
-                                echo "<p>No products found.</p>";
-                            }
-                        }
-                        ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-    <!-- ***** Women Area Ends ***** -->
-
-    <section class="section" id="kids">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="section-heading">
-                        <h2>Kid's Latest</h2>
-                        <span>Select a Category To Explore Our Range Of Apparel For Kids.</span>
+                        <h2>Men's Latest</h2>
+                        <span>We Offer Shirts, Trousers And Other Products For Men.</span>
                     </div>
                 </div>
             </div>
@@ -322,11 +189,88 @@ include ('includes/header1.php');
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="kid-item-carousel">
-                        <div class="owl-kid-item owl-carousel">
+                    <div class="men-item-carousel">
+                        <div class="owl-men-item owl-carousel">
                             <?php
                             // Fetch product data
-                            $sql = "SELECT * FROM product_details WHERE categories='k'";
+                            $sql = "SELECT * FROM product_details WHERE categories= 'm' ";
+                            $result = $conn->query($sql);
+                            if ($result->num_rows > 0) {
+                                // Output data of each row
+                                while ($row = $result->fetch_assoc()) {
+                                    ?>
+                                    <div class="item" style="height: 400px; width: 300px;">
+                                        <!-- Adjust height and width as needed -->
+                                        <div class="thumb"
+                                            style="height: 300px; width: 100%; display: flex; align-items: center; overflow: hidden;">
+                                            <!-- Make the image clickable and redirect to single-product.php -->
+                                            <a href="single-product.php?id=<?= $row["product_id"] ?>"
+                                                style="height: 100%; width: 100%;">
+                                                <img src="./images/<?= $row["image1"] ?>" alt="<?= $row["product_name"] ?>"
+                                                    style="height: 100%; width: 100%; object-fit: cover;">
+                                            </a>
+                                            <div class="hover-content">
+                                                <div class="mt-2 align-items-center">
+                                                    <a href="single-product.php?id=<?= $row["product_id"] ?>"
+                                                        class="btn btn-light btn-lg btn-block position-relative">
+                                                        <span class="ms-">QUICK VIEW</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="down-content">
+                                            <p
+                                                style="width: 301px; font-size: 14px; color: #2a2a2a; height: 25px; overflow: hidden; word-wrap: none; text-overflow: ellipsis;">
+                                                <?= $row["brand_name"] ?>
+                                            </p>
+                                            <p
+                                                style="width: 301px; font-size: 14px; color: #2a2a2a; height: 25px; overflow: hidden; word-wrap: none; text-overflow: ellipsis;">
+                                                <?= $row["product_name"] ?>
+                                            </p>
+                                            <span>RS. <?= $row["product_price"] ?></span>
+                                        </div>
+
+                                    </div>
+                                    <?php
+                                }
+                            } else {
+                                ?>
+                                <p>No products found.</p>
+                                <?php
+                            }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+
+    <!-- ***** Men Area Ends ***** -->
+
+    <!-- ***** Women Area Starts ***** -->
+    <!-- ***** Women Area Starts ***** -->
+    <section class="section" id="women">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="section-heading">
+                        <h2>Women's Latest</h2>
+                        <span>Select a Category To View Our Collection Of Products For Women.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="women-item-carousel">
+                        <div class="owl-women-item owl-carousel">
+                            <?php
+                            // Fetch product data
+                            $sql = "SELECT * FROM product_details WHERE categories='w'";
                             $result = $conn->query($sql);
 
                             if ($result === false) {
@@ -337,32 +281,38 @@ include ('includes/header1.php');
                                     // Output data of each row
                                     while ($row = $result->fetch_assoc()) {
                                         ?>
-                                        <div class="item">
-                                            <div class="thumb">
-                                                <a href="single-product.php?id=<?= $row["product_id"] ?>">
-                                                    <img src="./images/<?= $row["image1"] ?>" alt="<?= $row["product_name"] ?>">
-                                                    <div class="hover-content">
-                                                        <div class="mt-2 align-items-center">
-                                                        <a href="single-product.php?id=<?= $row["product_id"] ?>"
-                                                        class="btn btn-light btn-lg btn-block position-relative">
-
-                                                        <span class="ms-">QUICK VIEW</span>
-                                                    </a>
-                                                        </div>
-                                                    </div>
+                                        <div class="item" style="height: 400px; width: 300px;">
+                                            <!-- Adjust height and width as needed -->
+                                            <div class="thumb"
+                                                style="height: 300px; width: 100%; display: flex; align-items: center; overflow: hidden;">
+                                                <!-- Make the image clickable and redirect to single-product.php -->
+                                                <a href="single-product.php?id=<?= $row["product_id"] ?>"
+                                                    style="height: 100%; width: 100%;">
+                                                    <img src="./images/<?= $row["image1"] ?>" alt="<?= $row["product_name"] ?>"
+                                                        style="height: 100%; width: 100%; object-fit: cover;">
                                                 </a>
+                                                <div class="hover-content">
+                                                    <div class="mt-2 align-items-center">
+                                                        <a href="single-product.php?id=<?= $row["product_id"] ?>"
+                                                            class="btn btn-light btn-lg btn-block position-relative">
+                                                            <span class="ms-">QUICK VIEW</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="down-content">
-                                                <h5>
-                                                    <?= $row["brand_name"] ?>
-                                                </h5>
-                                                <p>
-                                                    <?= $row["product_name"] ?>
-                                                </p>
-                                                <span>RS.
-                                                    <?= $row["product_price"] ?>
-                                                </span>
-                                            </div>
+                                            <p
+                                                style="width: 301px; font-size: 14px; color: #2a2a2a; height: 25px; overflow: hidden; word-wrap: none; text-overflow: ellipsis;">
+                                                <?= $row["brand_name"] ?>
+                                            </p>
+                                            <p
+                                                style="width: 301px; font-size: 14px; color: #2a2a2a; height: 25px; overflow: hidden; word-wrap: none; text-overflow: ellipsis;">
+                                                <?= $row["product_name"] ?>
+                                            </p>
+                                            <span>RS. <?= $row["product_price"] ?></span>
+                                        </div>
+
+                                    </div>
                                         </div>
                                         <?php
                                     }
@@ -377,6 +327,73 @@ include ('includes/header1.php');
                 </div>
             </div>
         </div>
+
+    </section>
+
+    <!-- ***** Women Area Ends ***** -->
+
+    <section class="section" id="kids">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="section-heading">
+                        <h2>Kid's Latest</h2>
+                        <span>Select a Category To Explore Our Range Of Apparel For Kids.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+       <div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="kid-item-carousel">
+                <div class="owl-kid-item owl-carousel">
+                    <?php
+                    // Fetch product data
+                    $sql = "SELECT * FROM product_details WHERE categories='k'";
+                    $result = $conn->query($sql);
+
+                    if ($result === false) {
+                        // Error executing the SQL query
+                        echo "Error: " . $sql . "<br>" . $conn->error;
+                    } else {
+                        if ($result->num_rows > 0) {
+                            // Output data of each row
+                            while ($row = $result->fetch_assoc()) {
+                                ?>
+                                <div class="item" style="height: 400px; width: 300px;">
+                                    <div class="thumb" style="height: 300px; width: 100%; display: flex; align-items: center; overflow: hidden;">
+                                        <a href="single-product.php?id=<?= $row["product_id"] ?>" style="height: 100%; width: 100%;">
+                                            <img src="./images/<?= $row["image1"] ?>" alt="<?= $row["product_name"] ?>" style="height: 100%; width: 100%; object-fit: cover;">
+                                        </a>
+                                        <div class="hover-content">
+                                            <div class="mt-2 align-items-center">
+                                                <a href="single-product.php?id=<?= $row["product_id"] ?>" class="btn btn-light btn-lg btn-block position-relative">
+                                                    <span class="ms-">QUICK VIEW</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="down-content">
+                                        <p style="width: 301px; font-size: 14px; color: #2a2a2a; height: 25px; overflow: hidden; word-wrap: none; text-overflow: ellipsis;"><?= $row["brand_name"] ?></p>
+                                        <p style="width: 301px; font-size: 14px; color: #2a2a2a; height: 25px; overflow: hidden; word-wrap: none; text-overflow: ellipsis;"><?= $row["product_name"] ?></p>
+                                        <span>RS. <?= $row["product_price"] ?></span>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                        } else {
+                            // No products found
+                            echo "<p>No products found.</p>";
+                        }
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
     </section>
 
     <!-- ***** Kids Area Ends ***** -->
